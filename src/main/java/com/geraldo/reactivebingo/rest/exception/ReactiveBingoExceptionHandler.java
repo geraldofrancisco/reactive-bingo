@@ -1,4 +1,4 @@
-package com.geraldo.reactivebingo.rest.exceptionhandler;
+package com.geraldo.reactivebingo.rest.exception;
 
 
 import com.geraldo.reactivebingo.domain.model.exception.ErrorFieldResponse;
@@ -36,6 +36,13 @@ public class ReactiveBingoExceptionHandler {
                 .doFirst(() -> log.error("There was a generic error: ", ex));
     }
 
+    @ExceptionHandler(BingoException.class)
+    public Mono<ResponseEntity<ExceptionResponse>> handleException(final BingoException ex) {
+        return Mono.just(getMessage(ex.getMessage()))
+                .flatMap(message -> getExceptionResponse(ex.getStatus(), message, null))
+                .doFirst(() -> log.error("There was a Bingo error: ", ex));
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     public Mono<ResponseEntity<ExceptionResponse>> handleException (final ConstraintViolationException ex) {
         return Flux.fromIterable(ex.getConstraintViolations())
@@ -44,7 +51,8 @@ public class ReactiveBingoExceptionHandler {
                         .message(getMessage(e.getMessageTemplate()))
                         .build())
                 .collectList()
-                .flatMap(list -> getExceptionResponse(BAD_REQUEST, null, list));
+                .flatMap(list -> getExceptionResponse(BAD_REQUEST, null, list))
+                .doFirst(() -> log.error("There was a constraint error: ", ex));
     }
 
     private String getMessage(String error) {

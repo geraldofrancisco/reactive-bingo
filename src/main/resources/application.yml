@@ -6,7 +6,7 @@ spring:
     name: reactive-bingo
   data:
     mongodb:
-      uri: mongodb+srv://geraldo:<password>@cluster0.accnknh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      uri: mongodb+srv://geraldo:Ua7TtFKBQ1UcgCKc@cluster0.accnknh.mongodb.net/dio
       database: dio
 
 app:

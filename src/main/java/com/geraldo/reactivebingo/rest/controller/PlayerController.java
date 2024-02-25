@@ -1,5 +1,8 @@
 package com.geraldo.reactivebingo.rest.controller;
 
+import com.geraldo.reactivebingo.domain.mapper.PlayerMapper;
+import com.geraldo.reactivebingo.domain.model.response.player.PlayerCreateResponse;
+import com.geraldo.reactivebingo.domain.service.PlayerService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -17,14 +20,16 @@ import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.GENERIC_R
 @RequiredArgsConstructor
 public class PlayerController {
 
-
+    private final PlayerService service;
+    private final PlayerMapper mapper;
 
     @PostMapping("/{nickname}")
-    public Mono<String> create(
+    public Mono<PlayerCreateResponse> create(
             @PathVariable
             @NotBlank(message = GENERIC_REQUIRED)
             String nickname
     ) {
-        return Mono.just(nickname);
+        return service.create(nickname)
+                .map(mapper::toResponse);
     }
 }
