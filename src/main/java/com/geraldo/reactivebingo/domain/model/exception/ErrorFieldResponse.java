@@ -1,4 +1,4 @@
-package com.geraldo.reactivebingo.rest.model.response;
+package com.geraldo.reactivebingo.domain.model.exception;
 
 import lombok.Builder;
 
