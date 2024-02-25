@@ -4,12 +4,17 @@ import com.geraldo.reactivebingo.domain.mapper.PlayerMapper;
 import com.geraldo.reactivebingo.domain.model.dto.Player;
 import com.geraldo.reactivebingo.repository.PlayerRepository;
 import com.geraldo.reactivebingo.rest.exception.BusinessException;
+import com.geraldo.reactivebingo.rest.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
+
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.PLAYER_ALREADY_REGISTERED;
+import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.PLAYER_NOT_FOUND;
 import static java.lang.Boolean.FALSE;
 
 @Slf4j
@@ -34,5 +39,16 @@ public class PlayerService {
                 .flatMap(repository::save)
                 .map(mapper::toPlayer)
                 .doFirst(() -> log.info("Saving player in database"));
+    }
+
+    public Mono<Player> getById(String id) {
+        return Mono.just(id)
+                .filter(ObjectId::isValid)
+                .map(ObjectId::new)
+                .flatMap(repository::findById)
+                .map(mapper::toPlayer)
+                .switchIfEmpty(Mono.error(new NotFoundException(PLAYER_NOT_FOUND)))
+                .doFirst(() -> log.info("Trying to search for player by id"));
+
     }
 }

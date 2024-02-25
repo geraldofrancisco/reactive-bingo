@@ -6,6 +6,7 @@ import com.geraldo.reactivebingo.domain.service.PlayerService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,16 @@ public class PlayerController {
 
     private final PlayerService service;
     private final PlayerMapper mapper;
+
+    @GetMapping("/{id}")
+    public Mono<PlayerCreateResponse> getById(
+            @PathVariable
+            @NotBlank(message = GENERIC_REQUIRED)
+            String id
+    ) {
+        return service.getById(id)
+                .map(mapper::toResponse);
+    }
 
     @PostMapping("/{nickname}")
     public Mono<PlayerCreateResponse> create(
