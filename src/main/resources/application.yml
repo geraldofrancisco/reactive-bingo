@@ -10,4 +10,4 @@ spring:
       database: dio
 
 app:
-  version: '@project.version@'
+  version: ^project.version^

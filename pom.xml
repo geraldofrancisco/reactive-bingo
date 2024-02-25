@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.geraldo</groupId>
 	<artifactId>reactive-bingo</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>reactive-bingo</name>
 	<description>DIO reactive bingo project challenge</description>
 	<properties>
@@ -19,6 +19,7 @@
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
 		<lombok-mapstruct.version>0.2.0</lombok-mapstruct.version>
 		<org.projectlombok.version>1.18.30</org.projectlombok.version>
+		<openapi.version>2.1.0</openapi.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -60,6 +61,11 @@
 			<artifactId>mapstruct</artifactId>
 			<version>${org.mapstruct.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+			<version>${openapi.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -100,6 +106,16 @@
 							<version>${lombok-mapstruct.version}</version>
 						</path>
 					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<delimiters>
+						<delimiter>^</delimiter>
+					</delimiters>
+					<useDefaultDelimiters>false</useDefaultDelimiters>
 				</configuration>
 			</plugin>
 		</plugins>
