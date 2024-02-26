@@ -1,17 +1,25 @@
 package com.geraldo.reactivebingo.domain.service;
 
 import com.geraldo.reactivebingo.domain.mapper.PlayerMapper;
+import com.geraldo.reactivebingo.domain.model.dto.PageResponseDTO;
 import com.geraldo.reactivebingo.domain.model.dto.Player;
+import com.geraldo.reactivebingo.domain.model.response.player.PlayerCreateResponse;
 import com.geraldo.reactivebingo.repository.PlayerRepository;
 import com.geraldo.reactivebingo.rest.exception.BusinessException;
 import com.geraldo.reactivebingo.rest.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.PLAYER_ALREADY_REGISTERED;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.PLAYER_NOT_FOUND;
@@ -50,5 +58,11 @@ public class PlayerService {
                 .switchIfEmpty(Mono.error(new NotFoundException(PLAYER_NOT_FOUND)))
                 .doFirst(() -> log.info("Trying to search for player by id"));
 
+    }
+
+    public Mono<PageImpl<Player>> findALl(Pageable pageable) {
+        var page =  new PageImpl<>(List.of(Player.builder().build()),pageable, 10L);
+        page.getContent();
+        return Mono.just(page);
     }
 }
