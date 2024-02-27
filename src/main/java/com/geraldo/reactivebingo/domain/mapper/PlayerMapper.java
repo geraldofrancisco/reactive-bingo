@@ -1,23 +1,17 @@
 package com.geraldo.reactivebingo.domain.mapper;
 
 import com.geraldo.reactivebingo.domain.model.document.player.PlayerDocument;
-import com.geraldo.reactivebingo.domain.model.dto.PageResponseDTO;
 import com.geraldo.reactivebingo.domain.model.dto.Player;
 import com.geraldo.reactivebingo.domain.model.response.player.PageResponse;
-import com.geraldo.reactivebingo.domain.model.response.player.PlayerCreateResponse;
+import com.geraldo.reactivebingo.domain.model.response.player.PlayerResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
-import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.springframework.data.domain.PageImpl;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
@@ -31,17 +25,16 @@ public interface PlayerMapper {
     @Mapping(target = "id", qualifiedByName = "toId")
     Player toPlayer(PlayerDocument document);
 
-    PlayerCreateResponse toResponse(Player player);
+    PlayerResponse toResponse(Player player);
 
-    List<PlayerCreateResponse> toResponse(List<Player> player);
+    List<PlayerResponse> toResponse(List<Player> player);
 
+    @Mapping(target = "hasNext", expression = "java(page.hasNext())")
     @Mapping(target = "content", qualifiedByName = "toContent")
-    PageResponse<PlayerCreateResponse> toPage(PageImpl<Player> page);
+    PageResponse<PlayerResponse> toPage(PageImpl<Player> page);
 
     @Named("toContent")
-    default List<PlayerCreateResponse> toContent(List<Player> list) {
-        if(Objects.isNull(list))
-            return null;
+    default List<PlayerResponse> toContent(List<Player> list) {
         return list.stream().map(this::toResponse).toList();
     }
 

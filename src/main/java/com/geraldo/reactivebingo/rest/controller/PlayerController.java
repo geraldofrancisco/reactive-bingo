@@ -2,7 +2,7 @@ package com.geraldo.reactivebingo.rest.controller;
 
 import com.geraldo.reactivebingo.domain.mapper.PlayerMapper;
 import com.geraldo.reactivebingo.domain.model.response.player.PageResponse;
-import com.geraldo.reactivebingo.domain.model.response.player.PlayerCreateResponse;
+import com.geraldo.reactivebingo.domain.model.response.player.PlayerResponse;
 import com.geraldo.reactivebingo.domain.service.PlayerService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ public class PlayerController {
 
     @GetMapping
     @ResponseStatus(OK)
-    public Mono<PageResponse<PlayerCreateResponse>> getList(
+    public Mono<PageResponse<PlayerResponse>> getList(
             @RequestParam(name = "page", defaultValue = DEFAULT_PAGE, required = false) int page,
             @RequestParam(name = "size", defaultValue = DEFAULT_SIZE, required = false) int size
     ) {
@@ -43,7 +43,7 @@ public class PlayerController {
 
     @GetMapping("/{id}")
     @ResponseStatus(OK)
-    public Mono<PlayerCreateResponse> getById(
+    public Mono<PlayerResponse> getById(
             @PathVariable
             @NotBlank(message = GENERIC_REQUIRED)
             String id
@@ -53,7 +53,7 @@ public class PlayerController {
     }
 
     @PostMapping("/{nickname}")
-    public Mono<PlayerCreateResponse> create(
+    public Mono<PlayerResponse> create(
             @PathVariable
             @NotBlank(message = GENERIC_REQUIRED)
             String nickname
