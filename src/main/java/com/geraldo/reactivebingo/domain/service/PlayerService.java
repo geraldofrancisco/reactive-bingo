@@ -2,6 +2,7 @@ package com.geraldo.reactivebingo.domain.service;
 
 import com.geraldo.reactivebingo.domain.mapper.PlayerMapper;
 import com.geraldo.reactivebingo.domain.model.dto.Player;
+import com.geraldo.reactivebingo.domain.model.response.player.PlayerResponse;
 import com.geraldo.reactivebingo.repository.PlayerRepository;
 import com.geraldo.reactivebingo.rest.exception.BusinessException;
 import com.geraldo.reactivebingo.rest.exception.NotFoundException;
@@ -13,11 +14,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
-
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.PLAYER_ALREADY_REGISTERED;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.PLAYER_NOT_FOUND;
 import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 @Slf4j
 @Service
@@ -61,5 +61,14 @@ public class PlayerService {
                 .collectList()
                 .map(list -> new PageImpl<>(list, pageable, total))
             );
+    }
+
+    public Mono<Player> update(Player player) {
+        return Mono.just(player)
+            .map(p -> new ObjectId(p.id()))
+            .flatMap(this.repository::existsById)
+            .filter(TRUE::equals)
+            .flatMap(b -> this.save(player))
+            .switchIfEmpty(Mono.error(new NotFoundException(PLAYER_NOT_FOUND)));
     }
 }

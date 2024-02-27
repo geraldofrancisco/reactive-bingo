@@ -11,5 +11,6 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface PlayerRepository extends ReactiveMongoRepository<PlayerDocument, ObjectId> {
     Mono<Boolean> existsByNickname(String nickname);
+    Mono<Boolean> existsById(ObjectId id);
     Flux<PlayerDocument> findByIdNotNullOrderByNicknameAsc(Pageable pageable);
 }

@@ -2,6 +2,7 @@ package com.geraldo.reactivebingo.domain.mapper;
 
 import com.geraldo.reactivebingo.domain.model.document.player.PlayerDocument;
 import com.geraldo.reactivebingo.domain.model.dto.Player;
+import com.geraldo.reactivebingo.domain.model.request.player.PlayerUpdateRequest;
 import com.geraldo.reactivebingo.domain.model.response.player.PageResponse;
 import com.geraldo.reactivebingo.domain.model.response.player.PlayerResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -25,9 +26,10 @@ public interface PlayerMapper {
     @Mapping(target = "id", qualifiedByName = "toId")
     Player toPlayer(PlayerDocument document);
 
+    Player toPlayer(PlayerUpdateRequest request);
+
     PlayerResponse toResponse(Player player);
 
-    List<PlayerResponse> toResponse(List<Player> player);
 
     @Mapping(target = "hasNext", expression = "java(page.hasNext())")
     @Mapping(target = "content", qualifiedByName = "toContent")
