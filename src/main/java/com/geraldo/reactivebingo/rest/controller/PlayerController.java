@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,7 @@ import static com.geraldo.reactivebingo.domain.constants.Constants.DEFAULT_PAGE;
 import static com.geraldo.reactivebingo.domain.constants.Constants.DEFAULT_SIZE;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.GENERIC_REQUIRED;
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
@@ -81,5 +83,13 @@ public class PlayerController {
                .flatMap(service::update)
                .map(mapper::toResponse);
 
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(NO_CONTENT)
+    public Mono<Void> delete(
+            @PathVariable String id
+    ) {
+        return service.delete(id);
     }
 }

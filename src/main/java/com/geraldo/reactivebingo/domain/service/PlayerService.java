@@ -71,4 +71,10 @@ public class PlayerService {
             .flatMap(b -> this.save(player))
             .switchIfEmpty(Mono.error(new NotFoundException(PLAYER_NOT_FOUND)));
     }
+
+    public Mono<Void> delete(String id) {
+        return getById(id)
+            .map(mapper::toDocument)
+            .flatMap(this.repository::delete);
+    }
 }
