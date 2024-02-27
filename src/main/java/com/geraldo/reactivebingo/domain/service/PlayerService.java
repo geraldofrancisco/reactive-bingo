@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.PLAYER_ALREADY_REGISTERED;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.PLAYER_NOT_FOUND;
@@ -56,9 +55,11 @@ public class PlayerService {
     }
 
     public Mono<PageImpl<Player>> findALl(Pageable pageable) {
-        var list = new ArrayList<Player>();
-        var page =  new PageImpl<>(list,pageable, 0L);
-
-        return Mono.just(page);
+        return this.repository.count()
+            .flatMap(total -> this.repository.findByIdNotNullOrderByNicknameAsc(pageable)
+                .map(this.mapper::toPlayer)
+                .collectList()
+                .map(list -> new PageImpl<>(list, pageable, total))
+            );
     }
 }
