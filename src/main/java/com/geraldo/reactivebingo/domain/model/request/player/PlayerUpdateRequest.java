@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 
@@ -28,5 +29,9 @@ public record PlayerUpdateRequest(
                         return true;
 
                 return ObjectId.isValid(id);
+        }
+
+        @Builder(toBuilder = true)
+        public PlayerUpdateRequest {
         }
 }
