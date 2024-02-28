@@ -25,6 +25,8 @@ import static com.geraldo.reactivebingo.domain.constants.Constants.PAGE;
 import static com.geraldo.reactivebingo.domain.constants.Constants.SIZE;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.GENERIC_REQUIRED;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.PLAYER_ID_INVALID;
+import static com.geraldo.reactivebingo.domain.constants.Examples.PLAYER_ID;
+import static com.geraldo.reactivebingo.domain.constants.Examples.PLAYER_NICKNAME;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mapstruct.factory.Mappers.getMapper;
 import static org.mockito.ArgumentMatchers.any;
@@ -35,7 +37,7 @@ import static org.springframework.test.util.ReflectionTestUtils.setField;
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {PlayerController.class, ReactiveBingoExceptionHandler.class})
 @WebFluxTest(controllers = PlayerController.class)
-public class PlayerControllerTest extends ControllerTest{
+public class PlayerControllerTests extends ControllerTest{
 
     @InjectMocks
     private PlayerController controller;
@@ -50,8 +52,6 @@ public class PlayerControllerTest extends ControllerTest{
     private static final String PLAYER_URL = "/api/v1/player";
     private static final String PLAYER_URL_ID = "/api/v1/player/{id}";
     private static final String PLAYER_URL_NICKNAME = "/api/v1/player/{nickname}";
-    private static final String PLAYER_NICKNAME = "nickname";
-    private static final String PLAYER_ID = "65dd5c1039a1c56b40b7f959";
 
     @Override
     public void init() {

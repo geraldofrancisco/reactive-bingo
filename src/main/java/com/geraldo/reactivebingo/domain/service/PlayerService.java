@@ -45,7 +45,6 @@ public class PlayerService {
 
     public Mono<Player> getById(String id) {
         return Mono.just(id)
-                .filter(ObjectId::isValid)
                 .map(ObjectId::new)
                 .flatMap(repository::findById)
                 .map(mapper::toPlayer)
