@@ -50,6 +50,8 @@ public class PlayerControllerTest extends ControllerTest{
     private static final String PLAYER_URL = "/api/v1/player";
     private static final String PLAYER_URL_ID = "/api/v1/player/{id}";
     private static final String PLAYER_URL_NICKNAME = "/api/v1/player/{nickname}";
+    private static final String PLAYER_NICKNAME = "nickname";
+    private static final String PLAYER_ID = "65dd5c1039a1c56b40b7f959";
 
     @Override
     public void init() {
@@ -86,7 +88,7 @@ public class PlayerControllerTest extends ControllerTest{
 
         var uri = UriComponentsBuilder
                 .fromUriString(PLAYER_URL_ID)
-                .buildAndExpand("65dd5c1039a1c56b40b7f959")
+                .buildAndExpand(PLAYER_ID)
                 .toUriString();
 
         when(service.getById(anyString()))
@@ -109,7 +111,7 @@ public class PlayerControllerTest extends ControllerTest{
 
         var uri = UriComponentsBuilder
                 .fromUriString(PLAYER_URL_NICKNAME)
-                .buildAndExpand("geraldim")
+                .buildAndExpand(PLAYER_NICKNAME)
                 .toUriString();
 
         when(service.create(anyString()))
@@ -155,7 +157,7 @@ public class PlayerControllerTest extends ControllerTest{
 
         var uri = UriComponentsBuilder
                 .fromUriString(PLAYER_URL_ID)
-                .buildAndExpand("65dd5c1039a1c56b40b7f959")
+                .buildAndExpand(PLAYER_ID)
                 .toUriString();
 
         when(service.delete(any()))
@@ -178,22 +180,22 @@ public class PlayerControllerTest extends ControllerTest{
 
     private PlayerUpdateRequest.PlayerUpdateRequestBuilder getUpdateRequest() {
         return PlayerUpdateRequest.builder()
-                .id("65dd5c1039a1c56b40b7f959")
-                .nickname("nickname");
+                .id(PLAYER_ID)
+                .nickname(PLAYER_NICKNAME);
     }
 
     private PlayerResponse getPlayerResponse() {
         return PlayerResponse
                 .builder()
-                .id("65dd5c1039a1c56b40b7f959")
-                .nickname("nickname")
+                .id(PLAYER_ID)
+                .nickname(PLAYER_NICKNAME)
                 .build();
     }
 
     private Player getPlayer() {
         return Player.builder()
-                .id("65dd5c1039a1c56b40b7f959")
-                .nickname("nickname")
+                .id(PLAYER_ID)
+                .nickname(PLAYER_NICKNAME)
                 .build();
     }
 
