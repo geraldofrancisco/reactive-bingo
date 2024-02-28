@@ -11,6 +11,15 @@ public class Descriptions {
     public static final String PAGE_DESCRIPTION = "Define a página atual da consulta";
     public static final String SIZE_DESCRIPTION = "Define o tamanho da consulta";
 
+    //PAGE
+    public static final String PAGE_RESPONSE_CONTENT = "Lista de retorno da consulta";
+    public static final String PAGE_RESPONSE_LAST = "Indica se é o último registro";
+    public static final String PAGE_RESPONSE_TOTAL_PAGES = "Indica o total de páginas que possui a consulta";
+    public static final String PAGE_RESPONSE_TOTAL_ELEMENTS = "Indica a quantidade total de elementos da consulta";
+    public static final String PAGE_RESPONSE_HAS_NEXT = "Indica se existe uma próxima pagina";
+    public static final String PAGE_RESPONSE_NUMBER = "Indica o número da página atual";
+    public static final String PAGE_RESPONSE_SIZE = "Indica o tamanho da página atual";
+
     //EXCEPTION
     public static final String EXCEPTION_RESPONSE_TIMESTAMP = "Data/hora da exceção";
     public static final String EXCEPTION_RESPONSE_ERROR_DESCRIPTION = "Descrição da exceção lançada";
@@ -20,7 +29,7 @@ public class Descriptions {
     public static final String EXCEPTION_FIELD_RESPONSE_MESSAGE = "Mensagem descrevendo o motivo da exceção";
 
     //PLAYER
-    public static final String PLAYER_CONTROLLER = "Player Controller";
+    public static final String PLAYER_CONTROLLER = "Controlador de jogadores";
     public static final String PLAYER_CONTROLLER_DESCRIPTION = "Controlador para operações CRUD dos jogadores do bingo";
     public static final String PLAYER_FIELD_ID_DESCRIPTION = "Parâmetro de identificação do jogador";
     public static final String PLAYER_FIELD_NICKNAME_DESCRIPTION = "Parâmetro de nome/apelido do jogador";
@@ -37,4 +46,8 @@ public class Descriptions {
     public static final String PLAYER_FIELD_ID = "Código de identificação do jogador";
     public static final String PLAYER_FIELD_NICKNAME = "Nome de usuário do jogador";
 
+
+    //ROUND
+    public static final String ROUND_CONTROLLER = "Controlador de rodadas";
+    public static final String ROUND_CONTROLLER_DESCRIPTION = "Controlador para operações de criação e execução do bingo";
 }

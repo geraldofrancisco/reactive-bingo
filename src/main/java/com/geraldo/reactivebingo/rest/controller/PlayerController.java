@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -65,7 +66,30 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Validated
 @RequiredArgsConstructor
 @Tag(name = PLAYER_CONTROLLER, description = PLAYER_CONTROLLER_DESCRIPTION)
-
+@ApiResponses({
+    @ApiResponse(
+        responseCode = EXCEPTION_CODE_BAD_REQUEST,
+        content = @Content(
+            mediaType = APPLICATION_JSON_VALUE,
+            schema = @Schema(implementation = ExceptionResponse.class)
+        )
+    ),
+    @ApiResponse(
+        responseCode = EXCEPTION_CODE_NOT_FOUND,
+        content = @Content(
+            mediaType = APPLICATION_JSON_VALUE,
+            schema = @Schema(implementation = ExceptionResponse.class)
+        )
+    )
+    ,
+    @ApiResponse(
+        responseCode = EXCEPTION_CODE_UNPROCESSABLE_ENTITY,
+        content = @Content(
+            mediaType = APPLICATION_JSON_VALUE,
+            schema = @Schema(implementation = ExceptionResponse.class)
+        )
+    )
+})
 public class PlayerController {
 
     private final PlayerService service;
@@ -101,31 +125,7 @@ public class PlayerController {
     @Operation(
         summary = PLAYER_GET_BY_ID_SUMMARY,
         description = PLAYER_GET_BY_ID_DESCRIPTION,
-        parameters = @Parameter(name = ID, description = PLAYER_FIELD_ID_DESCRIPTION),
-        responses = {
-            @ApiResponse(
-                responseCode = EXCEPTION_CODE_BAD_REQUEST,
-                content = @Content(
-                    mediaType = APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ExceptionResponse.class)
-                )
-            ),
-            @ApiResponse(
-                responseCode = EXCEPTION_CODE_NOT_FOUND,
-                content = @Content(
-                    mediaType = APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ExceptionResponse.class)
-                )
-            )
-            ,
-            @ApiResponse(
-                responseCode = EXCEPTION_CODE_UNPROCESSABLE_ENTITY,
-                content = @Content(
-                    mediaType = APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ExceptionResponse.class)
-                )
-            )
-        }
+        parameters = @Parameter(name = ID, description = PLAYER_FIELD_ID_DESCRIPTION)
     )
     public Mono<PlayerResponse> getById(
             @PathVariable
@@ -141,32 +141,7 @@ public class PlayerController {
     @Operation(
         summary = PLAYER_POST_SUMMARY,
         description = PLAYER_POST_DESCRIPTION,
-        parameters = @Parameter(name = NICKNAME, description = PLAYER_FIELD_NICKNAME_DESCRIPTION),
-        responses = {
-            @ApiResponse(
-                responseCode = EXCEPTION_CODE_BAD_REQUEST,
-                content = @Content(
-                    mediaType = APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ExceptionResponse.class)
-                )
-            ),
-            @ApiResponse(
-                responseCode = EXCEPTION_CODE_NOT_FOUND,
-                content = @Content(
-                    mediaType = APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ExceptionResponse.class)
-                )
-            )
-            ,
-            @ApiResponse(
-                responseCode = EXCEPTION_CODE_UNPROCESSABLE_ENTITY,
-                content = @Content(
-                    mediaType = APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ExceptionResponse.class)
-                )
-            )
-        }
-
+        parameters = @Parameter(name = NICKNAME, description = PLAYER_FIELD_NICKNAME_DESCRIPTION)
     )
     public Mono<PlayerResponse> create(
             @PathVariable
@@ -181,31 +156,7 @@ public class PlayerController {
     @ResponseStatus(OK)
     @Operation(
         summary = PLAYER_PUT_SUMMARY,
-        description = PLAYER_PUT_DESCRIPTION,
-        responses = {
-            @ApiResponse(
-                responseCode = EXCEPTION_CODE_BAD_REQUEST,
-                content = @Content(
-                    mediaType = APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ExceptionResponse.class)
-                )
-            ),
-            @ApiResponse(
-                responseCode = EXCEPTION_CODE_NOT_FOUND,
-                content = @Content(
-                    mediaType = APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ExceptionResponse.class)
-                )
-            )
-            ,
-            @ApiResponse(
-                responseCode = EXCEPTION_CODE_UNPROCESSABLE_ENTITY,
-                content = @Content(
-                    mediaType = APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ExceptionResponse.class)
-                )
-            )
-        }
+        description = PLAYER_PUT_DESCRIPTION
     )
     public Mono<PlayerResponse> update(
             @Valid
@@ -224,31 +175,7 @@ public class PlayerController {
     @Operation(
         summary = PLAYER_DELETE_SUMMARY,
         description = PLAYER_DELETE_DESCRIPTION,
-        parameters = @Parameter(name = ID, description = PLAYER_FIELD_ID_DESCRIPTION),
-        responses = {
-            @ApiResponse(
-                responseCode = EXCEPTION_CODE_BAD_REQUEST,
-                content = @Content(
-                    mediaType = APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ExceptionResponse.class)
-                )
-            ),
-            @ApiResponse(
-                responseCode = EXCEPTION_CODE_NOT_FOUND,
-                content = @Content(
-                    mediaType = APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ExceptionResponse.class)
-                )
-            )
-            ,
-            @ApiResponse(
-                responseCode = EXCEPTION_CODE_UNPROCESSABLE_ENTITY,
-                content = @Content(
-                    mediaType = APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ExceptionResponse.class)
-                )
-            )
-        }
+        parameters = @Parameter(name = ID, description = PLAYER_FIELD_ID_DESCRIPTION)
     )
     public Mono<Void> delete(
             @PathVariable String id
