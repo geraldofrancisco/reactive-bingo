@@ -3,7 +3,7 @@ package com.geraldo.reactivebingo.domain.mapper;
 import com.geraldo.reactivebingo.domain.model.document.player.PlayerDocument;
 import com.geraldo.reactivebingo.domain.model.dto.Player;
 import com.geraldo.reactivebingo.domain.model.request.player.PlayerUpdateRequest;
-import com.geraldo.reactivebingo.domain.model.response.player.PageResponse;
+import com.geraldo.reactivebingo.domain.model.response.PageResponse;
 import com.geraldo.reactivebingo.domain.model.response.player.PlayerResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;

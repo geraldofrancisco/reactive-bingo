@@ -3,7 +3,7 @@ package com.geraldo.reactivebingo.rest.controller;
 import com.geraldo.reactivebingo.domain.mapper.PlayerMapper;
 import com.geraldo.reactivebingo.domain.model.dto.Player;
 import com.geraldo.reactivebingo.domain.model.request.player.PlayerUpdateRequest;
-import com.geraldo.reactivebingo.domain.model.response.player.PageResponse;
+import com.geraldo.reactivebingo.domain.model.response.PageResponse;
 import com.geraldo.reactivebingo.domain.model.response.player.PlayerResponse;
 import com.geraldo.reactivebingo.domain.service.PlayerService;
 import com.geraldo.reactivebingo.rest.exception.ReactiveBingoExceptionHandler;

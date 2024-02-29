@@ -3,7 +3,7 @@ package com.geraldo.reactivebingo.rest.controller;
 import com.geraldo.reactivebingo.domain.mapper.PlayerMapper;
 import com.geraldo.reactivebingo.domain.model.exception.ExceptionResponse;
 import com.geraldo.reactivebingo.domain.model.request.player.PlayerUpdateRequest;
-import com.geraldo.reactivebingo.domain.model.response.player.PageResponse;
+import com.geraldo.reactivebingo.domain.model.response.PageResponse;
 import com.geraldo.reactivebingo.domain.model.response.player.PlayerResponse;
 import com.geraldo.reactivebingo.domain.service.PlayerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -99,25 +99,16 @@ public class PlayerController {
     @ResponseStatus(OK)
     @Operation(
         summary = PLAYER_GET_LIST_SUMMARY,
-        description = PLAYER_GET_LIST_DESCRIPTION,
-        parameters = {
-                @Parameter(name = PAGE, description = PAGE_DESCRIPTION),
-                @Parameter(name = SIZE, description = SIZE_DESCRIPTION)
-        },
-        responses = @ApiResponse(
-            responseCode = EXCEPTION_CODE_BAD_REQUEST,
-            content = @Content(
-                    mediaType = APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ExceptionResponse.class)
-            )
-        )
+        description = PLAYER_GET_LIST_DESCRIPTION
     )
     public Mono<PageResponse<PlayerResponse>> getList(
-            @RequestParam(name = PAGE, defaultValue = DEFAULT_PAGE, required = false) int page,
-            @RequestParam(name = SIZE, defaultValue = DEFAULT_SIZE, required = false) int size
+        @Parameter(name = PAGE, description = PAGE_DESCRIPTION)
+        @RequestParam(name = PAGE, defaultValue = DEFAULT_PAGE, required = false) int page,
+        @Parameter(name = SIZE, description = SIZE_DESCRIPTION)
+        @RequestParam(name = SIZE, defaultValue = DEFAULT_SIZE, required = false) int size
     ) {
         return service.findALl(PageRequest.of(page, size))
-                .map(mapper::toPage);
+            .map(mapper::toPage);
     }
 
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
@@ -128,12 +119,12 @@ public class PlayerController {
         parameters = @Parameter(name = ID, description = PLAYER_FIELD_ID_DESCRIPTION)
     )
     public Mono<PlayerResponse> getById(
-            @PathVariable
-            @NotBlank(message = GENERIC_REQUIRED)
-            String id
+        @PathVariable
+        @NotBlank(message = GENERIC_REQUIRED)
+        String id
     ) {
         return service.getById(id)
-                .map(mapper::toResponse);
+            .map(mapper::toResponse);
     }
 
     @PostMapping(value = "/{nickname}", produces = APPLICATION_JSON_VALUE)
@@ -144,12 +135,12 @@ public class PlayerController {
         parameters = @Parameter(name = NICKNAME, description = PLAYER_FIELD_NICKNAME_DESCRIPTION)
     )
     public Mono<PlayerResponse> create(
-            @PathVariable
-            @NotBlank(message = GENERIC_REQUIRED)
-            String nickname
+        @PathVariable
+        @NotBlank(message = GENERIC_REQUIRED)
+        String nickname
     ) {
         return service.create(nickname)
-                .map(mapper::toResponse);
+            .map(mapper::toResponse);
     }
 
     @PutMapping(produces = APPLICATION_JSON_VALUE)
@@ -159,14 +150,14 @@ public class PlayerController {
         description = PLAYER_PUT_DESCRIPTION
     )
     public Mono<PlayerResponse> update(
-            @Valid
-            @RequestBody
-            PlayerUpdateRequest request
+        @Valid
+        @RequestBody
+        PlayerUpdateRequest request
     ) {
        return Mono.just(request)
-               .map(mapper::toPlayer)
-               .flatMap(service::update)
-               .map(mapper::toResponse);
+           .map(mapper::toPlayer)
+           .flatMap(service::update)
+           .map(mapper::toResponse);
 
     }
 
@@ -178,7 +169,7 @@ public class PlayerController {
         parameters = @Parameter(name = ID, description = PLAYER_FIELD_ID_DESCRIPTION)
     )
     public Mono<Void> delete(
-            @PathVariable String id
+        @PathVariable String id
     ) {
         return service.delete(id);
     }
