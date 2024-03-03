@@ -25,8 +25,8 @@ import static com.geraldo.reactivebingo.domain.constants.Constants.PAGE;
 import static com.geraldo.reactivebingo.domain.constants.Constants.SIZE;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.GENERIC_REQUIRED;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.PLAYER_ID_INVALID;
-import static com.geraldo.reactivebingo.domain.constants.Examples.PLAYER_ID;
-import static com.geraldo.reactivebingo.domain.constants.Examples.PLAYER_NICKNAME;
+import static com.geraldo.reactivebingo.domain.constants.Examples.PLAYER_ID_EXAMPLE;
+import static com.geraldo.reactivebingo.domain.constants.Examples.PLAYER_NICKNAME_EXAMPLE;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mapstruct.factory.Mappers.getMapper;
 import static org.mockito.ArgumentMatchers.any;
@@ -88,7 +88,7 @@ public class PlayerControllerTests extends ControllerTest{
 
         var uri = UriComponentsBuilder
                 .fromUriString(PLAYER_URL_ID)
-                .buildAndExpand(PLAYER_ID)
+                .buildAndExpand(PLAYER_ID_EXAMPLE)
                 .toUriString();
 
         when(service.getById(anyString()))
@@ -111,7 +111,7 @@ public class PlayerControllerTests extends ControllerTest{
 
         var uri = UriComponentsBuilder
                 .fromUriString(PLAYER_URL_NICKNAME)
-                .buildAndExpand(PLAYER_NICKNAME)
+                .buildAndExpand(PLAYER_NICKNAME_EXAMPLE)
                 .toUriString();
 
         when(service.create(anyString()))
@@ -157,7 +157,7 @@ public class PlayerControllerTests extends ControllerTest{
 
         var uri = UriComponentsBuilder
                 .fromUriString(PLAYER_URL_ID)
-                .buildAndExpand(PLAYER_ID)
+                .buildAndExpand(PLAYER_ID_EXAMPLE)
                 .toUriString();
 
         when(service.delete(any()))
@@ -180,22 +180,22 @@ public class PlayerControllerTests extends ControllerTest{
 
     private PlayerUpdateRequest.PlayerUpdateRequestBuilder getUpdateRequest() {
         return PlayerUpdateRequest.builder()
-                .id(PLAYER_ID)
-                .nickname(PLAYER_NICKNAME);
+                .id(PLAYER_ID_EXAMPLE)
+                .nickname(PLAYER_NICKNAME_EXAMPLE);
     }
 
     private PlayerResponse getPlayerResponse() {
         return PlayerResponse
                 .builder()
-                .id(PLAYER_ID)
-                .nickname(PLAYER_NICKNAME)
+                .id(PLAYER_ID_EXAMPLE)
+                .nickname(PLAYER_NICKNAME_EXAMPLE)
                 .build();
     }
 
     private Player getPlayer() {
         return Player.builder()
-                .id(PLAYER_ID)
-                .nickname(PLAYER_NICKNAME)
+                .id(PLAYER_ID_EXAMPLE)
+                .nickname(PLAYER_NICKNAME_EXAMPLE)
                 .build();
     }
 

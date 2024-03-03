@@ -12,6 +12,7 @@ public class Constants {
     public static final String SIZE = "size";
     public static final String ID = "id";
     public static final String NICKNAME = "nickname";
+    public static final String STATUS = "status";
     public static final String EXCEPTION_CODE_BAD_REQUEST = "400";
     public static final String EXCEPTION_CODE_NOT_FOUND = "404";
     public static final String EXCEPTION_CODE_UNPROCESSABLE_ENTITY = "422";

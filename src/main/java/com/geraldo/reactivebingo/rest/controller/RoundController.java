@@ -1,15 +1,20 @@
 package com.geraldo.reactivebingo.rest.controller;
 
+import com.geraldo.reactivebingo.domain.mapper.RoundMapper;
+import com.geraldo.reactivebingo.domain.model.enums.RoundStatus;
 import com.geraldo.reactivebingo.domain.model.exception.ExceptionResponse;
 import com.geraldo.reactivebingo.domain.model.response.PageResponse;
 import com.geraldo.reactivebingo.domain.model.response.round.RoundCardResponse;
 import com.geraldo.reactivebingo.domain.model.response.round.RoundResponse;
+import com.geraldo.reactivebingo.domain.service.RoundService;
+import com.geraldo.reactivebingo.rest.controller.validate.ValueOfEnum;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -29,11 +34,15 @@ import static com.geraldo.reactivebingo.domain.constants.Constants.EXCEPTION_COD
 import static com.geraldo.reactivebingo.domain.constants.Constants.EXCEPTION_CODE_UNPROCESSABLE_ENTITY;
 import static com.geraldo.reactivebingo.domain.constants.Constants.PAGE;
 import static com.geraldo.reactivebingo.domain.constants.Constants.SIZE;
+import static com.geraldo.reactivebingo.domain.constants.Constants.STATUS;
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.PAGE_DESCRIPTION;
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_CONTROLLER;
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_CONTROLLER_DESCRIPTION;
+import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_STATUS_DESCRIPTION;
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.SIZE_DESCRIPTION;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.GENERIC_REQUIRED;
+import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.ROUND_STATUS_INVALID;
+import static com.geraldo.reactivebingo.domain.constants.Examples.ROUND_STATUS_EXAMPLE;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -68,13 +77,21 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 })
 public class RoundController {
 
+    private final RoundService service;
+    private final RoundMapper mapper;
+
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
     public Mono<PageResponse<RoundResponse>> getList(
         @Parameter(name = PAGE, description = PAGE_DESCRIPTION)
         @RequestParam(name = PAGE, defaultValue = DEFAULT_PAGE, required = false) int page,
         @Parameter(name = SIZE, description = SIZE_DESCRIPTION)
-        @RequestParam(name = SIZE, defaultValue = DEFAULT_SIZE, required = false) int size
+        @RequestParam(name = SIZE, defaultValue = DEFAULT_SIZE, required = false) int size,
+        @Parameter(name = STATUS, description = ROUND_STATUS_DESCRIPTION, example = ROUND_STATUS_EXAMPLE,
+            schema = @Schema(implementation = RoundStatus.class, enumAsRef = true, defaultValue = ROUND_STATUS_EXAMPLE)
+        )
+        @Valid @ValueOfEnum(enumClass = RoundStatus.class, message = ROUND_STATUS_INVALID)
+        @RequestParam(name = STATUS, defaultValue = ROUND_STATUS_EXAMPLE, required = false) String status
     ){
         return Mono.empty();
     }

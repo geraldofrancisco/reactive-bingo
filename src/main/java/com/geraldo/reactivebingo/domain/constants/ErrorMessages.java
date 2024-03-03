@@ -14,4 +14,6 @@ public class ErrorMessages {
     public static final String PLAYER_ALREADY_REGISTERED = "PLAYER_ALREADY_REGISTERED";
     public static final String PLAYER_NOT_FOUND = "PLAYER_NOT_FOUND";
     public static final String PLAYER_ID_INVALID = "PLAYER_ID_INVALID";
+
+    public static final String ROUND_STATUS_INVALID = "ROUND_STATUS_INVALID";
 }

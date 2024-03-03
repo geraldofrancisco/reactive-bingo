@@ -22,7 +22,7 @@ import java.util.List;
 
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.PLAYER_ALREADY_REGISTERED;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.PLAYER_NOT_FOUND;
-import static com.geraldo.reactivebingo.domain.constants.Examples.PLAYER_NICKNAME;
+import static com.geraldo.reactivebingo.domain.constants.Examples.PLAYER_NICKNAME_EXAMPLE;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static org.mockito.ArgumentMatchers.any;
@@ -53,7 +53,7 @@ public class PlayerServiceTests {
 
         saveTraining(player);
 
-        var result = this.service.create(PLAYER_NICKNAME);
+        var result = this.service.create(PLAYER_NICKNAME_EXAMPLE);
 
         StepVerifier.create(result)
             .expectNext(player)
@@ -65,7 +65,7 @@ public class PlayerServiceTests {
         when(repository.existsByNickname(anyString()))
                 .thenReturn(Mono.just(TRUE));
 
-        var result = this.service.create(PLAYER_NICKNAME);
+        var result = this.service.create(PLAYER_NICKNAME_EXAMPLE);
         StepVerifier.create(result)
             .expectErrorMessage(PLAYER_ALREADY_REGISTERED)
             .verify();
@@ -205,14 +205,14 @@ public class PlayerServiceTests {
     private PlayerDocument getPlayerDocument() {
         return PlayerDocument.builder()
                 .id(new ObjectId())
-                .nickname(PLAYER_NICKNAME)
+                .nickname(PLAYER_NICKNAME_EXAMPLE)
                 .build();
     }
 
     private Player getPlayer() {
         return Player.builder()
             .id(new ObjectId().toHexString())
-            .nickname(PLAYER_NICKNAME)
+            .nickname(PLAYER_NICKNAME_EXAMPLE)
             .build();
     }
 }

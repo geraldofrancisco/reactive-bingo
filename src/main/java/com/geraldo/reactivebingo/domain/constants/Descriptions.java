@@ -50,4 +50,5 @@ public class Descriptions {
     //ROUND
     public static final String ROUND_CONTROLLER = "Controlador de rodadas";
     public static final String ROUND_CONTROLLER_DESCRIPTION = "Controlador para operações de criação e execução do bingo";
+    public static final String ROUND_STATUS_DESCRIPTION = "Status da rodada. <br/><br/> Default value: CREATED";
 }
