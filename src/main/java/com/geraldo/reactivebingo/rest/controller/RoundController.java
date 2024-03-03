@@ -17,6 +17,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -93,7 +95,8 @@ public class RoundController {
         @Valid @ValueOfEnum(enumClass = RoundStatus.class, message = ROUND_STATUS_INVALID)
         @RequestParam(name = STATUS, defaultValue = ROUND_STATUS_EXAMPLE, required = false) String status
     ){
-        return Mono.empty();
+        return service.findALlByStatus(RoundStatus.getByName(status), PageRequest.of(page, size))
+                .map(mapper::toPage);
     }
 
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
