@@ -35,7 +35,6 @@ public class RoundService {
 
     public Mono<Round> getById(String id) {
         return Mono.just(id)
-            .filter(ObjectId::isValid)
             .map(ObjectId::new)
             .flatMap(repository::findById)
             .map(mapper::toRound)
