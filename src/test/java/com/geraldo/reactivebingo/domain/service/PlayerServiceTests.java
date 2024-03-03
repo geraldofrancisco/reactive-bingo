@@ -2,8 +2,7 @@ package com.geraldo.reactivebingo.domain.service;
 
 import com.geraldo.reactivebingo.domain.mapper.PlayerMapper;
 import com.geraldo.reactivebingo.domain.model.document.player.PlayerDocument;
-import com.geraldo.reactivebingo.domain.model.dto.Player;
-import com.geraldo.reactivebingo.domain.service.PlayerService;
+import com.geraldo.reactivebingo.domain.model.dto.player.Player;
 import com.geraldo.reactivebingo.repository.PlayerRepository;
 import org.bson.types.ObjectId;
 import org.junit.Test;
@@ -59,7 +58,6 @@ public class PlayerServiceTests {
         StepVerifier.create(result)
             .expectNext(player)
             .verifyComplete();
-
     }
 
     @Test

@@ -2,7 +2,7 @@ package com.geraldo.reactivebingo.rest.controller;
 
 import com.geraldo.reactivebingo.domain.model.exception.ExceptionResponse;
 import com.geraldo.reactivebingo.domain.model.response.PageResponse;
-import com.geraldo.reactivebingo.domain.model.response.card.CardResponse;
+import com.geraldo.reactivebingo.domain.model.response.round.RoundCardResponse;
 import com.geraldo.reactivebingo.domain.model.response.round.RoundResponse;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -114,7 +114,7 @@ public class RoundController {
     }
 
     @PostMapping(value = "/{id}/generate-card/player/{playerId}", produces = APPLICATION_JSON_VALUE)
-    public Mono<CardResponse> generateCard(
+    public Mono<RoundCardResponse> generateCard(
         @PathVariable
         @NotBlank(message = GENERIC_REQUIRED)
         String id,

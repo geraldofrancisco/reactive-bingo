@@ -1,8 +1,7 @@
 package com.geraldo.reactivebingo.domain.service;
 
 import com.geraldo.reactivebingo.domain.mapper.PlayerMapper;
-import com.geraldo.reactivebingo.domain.model.dto.Player;
-import com.geraldo.reactivebingo.domain.model.response.player.PlayerResponse;
+import com.geraldo.reactivebingo.domain.model.dto.player.Player;
 import com.geraldo.reactivebingo.repository.PlayerRepository;
 import com.geraldo.reactivebingo.rest.exception.BusinessException;
 import com.geraldo.reactivebingo.rest.exception.NotFoundException;

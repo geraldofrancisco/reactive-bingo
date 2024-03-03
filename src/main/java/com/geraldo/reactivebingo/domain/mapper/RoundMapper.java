@@ -1,12 +1,11 @@
 package com.geraldo.reactivebingo.domain.mapper;
 
-import com.geraldo.reactivebingo.domain.model.document.player.PlayerDocument;
+import com.geraldo.reactivebingo.domain.model.document.round.RoundDocument;
 import com.geraldo.reactivebingo.domain.model.dto.player.Player;
-import com.geraldo.reactivebingo.domain.model.request.player.PlayerUpdateRequest;
+import com.geraldo.reactivebingo.domain.model.dto.round.Round;
 import com.geraldo.reactivebingo.domain.model.response.PageResponse;
 import com.geraldo.reactivebingo.domain.model.response.player.PlayerResponse;
-import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
+import com.geraldo.reactivebingo.domain.model.response.round.RoundResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -17,28 +16,22 @@ import java.util.List;
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
 @Mapper(componentModel = SPRING)
-public interface PlayerMapper extends EntityMapper{
-    Player toPlayer(String nickname);
-
+public interface RoundMapper extends EntityMapper {
     @Mapping(target = "id", qualifiedByName = "toObjectId")
-    PlayerDocument toDocument(Player player);
+    RoundDocument toDocument(Round round);
 
     @Mapping(target = "id", qualifiedByName = "toId")
-    Player toPlayer(PlayerDocument document);
+    Round toRound(RoundDocument document);
 
-    Player toPlayer(PlayerUpdateRequest request);
 
-    PlayerResponse toResponse(Player player);
-
+    RoundResponse toResponse(Round round);
 
     @Mapping(target = "hasNext", expression = "java(page.hasNext())")
     @Mapping(target = "content", qualifiedByName = "toContent")
-    PageResponse<PlayerResponse> toPage(PageImpl<Player> page);
+    PageResponse<RoundResponse> toPage(PageImpl<Round> page);
 
     @Named("toContent")
-    default List<PlayerResponse> toContent(List<Player> list) {
+    default List<RoundResponse> toContent(List<Round> list) {
         return list.stream().map(this::toResponse).toList();
     }
-
-
 }
