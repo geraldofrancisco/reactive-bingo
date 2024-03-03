@@ -1,9 +1,7 @@
 package com.geraldo.reactivebingo.domain.model.response.round;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.geraldo.reactivebingo.domain.model.document.round.RoundCardDocument;
 import com.geraldo.reactivebingo.domain.model.enums.RoundStatus;
-import com.geraldo.reactivebingo.domain.model.response.player.PlayerResponse;
 import lombok.Builder;
 
 import java.util.List;

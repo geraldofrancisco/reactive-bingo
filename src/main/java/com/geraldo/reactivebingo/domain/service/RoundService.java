@@ -4,7 +4,6 @@ import com.geraldo.reactivebingo.domain.mapper.RoundMapper;
 import com.geraldo.reactivebingo.domain.model.dto.round.Round;
 import com.geraldo.reactivebingo.domain.model.dto.round.RoundCard;
 import com.geraldo.reactivebingo.domain.model.enums.RoundStatus;
-import com.geraldo.reactivebingo.domain.model.response.round.RoundCardResponse;
 import com.geraldo.reactivebingo.repository.RoundRepository;
 import com.geraldo.reactivebingo.rest.exception.NotFoundException;
 import lombok.AllArgsConstructor;

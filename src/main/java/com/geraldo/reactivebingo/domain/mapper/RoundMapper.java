@@ -1,12 +1,10 @@
 package com.geraldo.reactivebingo.domain.mapper;
 
 import com.geraldo.reactivebingo.domain.model.document.round.RoundDocument;
-import com.geraldo.reactivebingo.domain.model.dto.player.Player;
 import com.geraldo.reactivebingo.domain.model.dto.round.Round;
 import com.geraldo.reactivebingo.domain.model.dto.round.RoundCard;
 import com.geraldo.reactivebingo.domain.model.response.PageResponse;
-import com.geraldo.reactivebingo.domain.model.response.player.PlayerResponse;
-import com.geraldo.reactivebingo.domain.model.response.round.RoundCardResponse;
+import com.geraldo.reactivebingo.domain.model.response.round.RoundCardOnlyResponse;
 import com.geraldo.reactivebingo.domain.model.response.round.RoundResponse;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bson.types.ObjectId;
@@ -38,7 +36,7 @@ public interface RoundMapper extends EntityMapper {
     @Mapping(source = "pair.left.owner.id", target = "owner.id")
     @Mapping(source = "pair.left.owner.nickname", target = "owner.nickname")
     @Mapping(source = "pair.left.numbers", target = "numbers")
-    RoundCardResponse toRoundCardResponse(Pair<RoundCard, ObjectId>pair);
+    RoundCardOnlyResponse toRoundCardResponse(Pair<RoundCard, ObjectId>pair);
 
 
     @Named("toContent")
