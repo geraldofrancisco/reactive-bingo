@@ -7,11 +7,14 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.geraldo.reactivebingo.domain.model.enums.RoundStatus.CREATED;
+
 @Builder
 @Data
 public class Round {
     private String id;
-    private RoundStatus status;
+    @Builder.Default
+    private RoundStatus status = CREATED;
     @Builder.Default
     private List<Integer> drawnNumbers = new ArrayList<>();
     private RoundCard winner;

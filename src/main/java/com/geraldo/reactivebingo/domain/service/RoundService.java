@@ -44,7 +44,10 @@ public class RoundService {
     }
 
     public Mono<Round> create() {
-        return Mono.empty();
+        return Mono.just(Round.builder().build())
+                .map(mapper::toDocument)
+                .flatMap(repository::save)
+                .map(mapper::toRound);
     }
 
     public Mono<Integer> getTheLastNumberDrawnByTheRoundId(String id) {
@@ -58,4 +61,6 @@ public class RoundService {
     public Mono<Pair<RoundCard, ObjectId>> generateCard(String roundId, String playerId) {
         return Mono.empty();
     }
+
+
 }
