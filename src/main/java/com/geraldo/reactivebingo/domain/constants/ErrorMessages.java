@@ -9,6 +9,7 @@ public class ErrorMessages {
     //GENERICS
     public static final String GENERIC_ERROR = "GENERIC_ERROR";
     public static final String GENERIC_REQUIRED = "GENERIC_REQUIRED";
+    public static final String GENERIC_INVALID_OBJECT_ID = "GENERIC_INVALID_OBJECT_ID";
 
     //PLAYER
     public static final String PLAYER_ALREADY_REGISTERED = "PLAYER_ALREADY_REGISTERED";
@@ -16,4 +17,5 @@ public class ErrorMessages {
     public static final String PLAYER_ID_INVALID = "PLAYER_ID_INVALID";
 
     public static final String ROUND_STATUS_INVALID = "ROUND_STATUS_INVALID";
+    public static final String ROUND_NOT_FOUND = "ROUND_NOT_FOUND";
 }

@@ -6,7 +6,8 @@ import lombok.Builder;
 import java.util.List;
 @Builder(toBuilder = true)
 public record RoundCardResponse(
+        String roundId,
         List<Integer> numbers,
-        RoundPlayerResponse player
+        RoundPlayerResponse owner
 ) {
 }

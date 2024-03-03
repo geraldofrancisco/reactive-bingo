@@ -27,28 +27,29 @@ public class PlayerService {
 
     public Mono<Player> create(String nickname) {
         return this.repository.existsByNickname(nickname)
-                .filter(FALSE::equals)
-                .map(b -> mapper.toPlayer(nickname))
-                .flatMap(this::save)
-                .switchIfEmpty(Mono.error(new BusinessException(PLAYER_ALREADY_REGISTERED)))
-                .doFirst(() -> log.info("Trying to create player"));
+            .filter(FALSE::equals)
+            .map(b -> mapper.toPlayer(nickname))
+            .flatMap(this::save)
+            .switchIfEmpty(Mono.error(new BusinessException(PLAYER_ALREADY_REGISTERED)))
+            .doFirst(() -> log.info("Trying to create player"));
     }
 
     private Mono<Player> save(Player player) {
         return Mono.just(player)
-                .map(mapper::toDocument)
-                .flatMap(repository::save)
-                .map(mapper::toPlayer)
-                .doFirst(() -> log.info("Saving player in database"));
+            .map(mapper::toDocument)
+            .flatMap(repository::save)
+            .map(mapper::toPlayer)
+            .doFirst(() -> log.info("Saving player in database"));
     }
 
     public Mono<Player> getById(String id) {
         return Mono.just(id)
-                .map(ObjectId::new)
-                .flatMap(repository::findById)
-                .map(mapper::toPlayer)
-                .switchIfEmpty(Mono.error(new NotFoundException(PLAYER_NOT_FOUND)))
-                .doFirst(() -> log.info("Trying to search for player by id"));
+            .filter(ObjectId::isValid)
+            .map(ObjectId::new)
+            .flatMap(repository::findById)
+            .map(mapper::toPlayer)
+            .switchIfEmpty(Mono.error(new NotFoundException(PLAYER_NOT_FOUND)))
+            .doFirst(() -> log.info("Trying to search for player by id"));
 
     }
 

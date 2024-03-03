@@ -7,6 +7,7 @@ import com.geraldo.reactivebingo.domain.model.response.PageResponse;
 import com.geraldo.reactivebingo.domain.model.response.round.RoundCardResponse;
 import com.geraldo.reactivebingo.domain.model.response.round.RoundResponse;
 import com.geraldo.reactivebingo.domain.service.RoundService;
+import com.geraldo.reactivebingo.rest.controller.validate.ObjectIdIsValid;
 import com.geraldo.reactivebingo.rest.controller.validate.ValueOfEnum;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -42,6 +43,7 @@ import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_CONT
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_CONTROLLER_DESCRIPTION;
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_STATUS_DESCRIPTION;
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.SIZE_DESCRIPTION;
+import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.GENERIC_INVALID_OBJECT_ID;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.GENERIC_REQUIRED;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.ROUND_STATUS_INVALID;
 import static com.geraldo.reactivebingo.domain.constants.Examples.ROUND_STATUS_EXAMPLE;
@@ -104,44 +106,52 @@ public class RoundController {
     public Mono<RoundResponse> getById(
         @PathVariable
         @NotBlank(message = GENERIC_REQUIRED)
+        @ObjectIdIsValid
         String id
     ){
-        return Mono.empty();
+        return this.service.getById(id)
+                .map(mapper::toResponse);
     }
 
     @GetMapping(value = "/{id}/last-number", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
     public Mono<Integer> getLastNumber(
         @PathVariable
+        @ObjectIdIsValid
         @NotBlank(message = GENERIC_REQUIRED)
         String id
     ){
-        return Mono.empty();
+        return this.service.getTheLastNumberDrawnByTheRoundId(id);
     }
 
     @PostMapping(produces = APPLICATION_JSON_VALUE)
     public Mono<RoundResponse> create() {
-        return Mono.empty();
+        return this.service.create()
+            .map(mapper::toResponse);
     }
 
     @PostMapping(value = "/{id}/generate-number", produces = APPLICATION_JSON_VALUE)
     public Mono<Integer> generateNumber(
         @PathVariable
         @NotBlank(message = GENERIC_REQUIRED)
+        @ObjectIdIsValid
         String id
     ) {
-        return Mono.empty();
+        return service.drawNexNumberByTheRoundId(id);
     }
 
     @PostMapping(value = "/{id}/generate-card/player/{playerId}", produces = APPLICATION_JSON_VALUE)
     public Mono<RoundCardResponse> generateCard(
         @PathVariable
         @NotBlank(message = GENERIC_REQUIRED)
+        @ObjectIdIsValid
         String id,
         @PathVariable
         @NotBlank(message = GENERIC_REQUIRED)
+        @ObjectIdIsValid
         String playerId
     ) {
-        return Mono.empty();
+        return this.service.generateCard(id, playerId)
+                .map(mapper::toRoundCardResponse);
     }
 }

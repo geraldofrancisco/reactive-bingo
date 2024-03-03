@@ -6,6 +6,7 @@ import com.geraldo.reactivebingo.domain.model.request.player.PlayerUpdateRequest
 import com.geraldo.reactivebingo.domain.model.response.PageResponse;
 import com.geraldo.reactivebingo.domain.model.response.player.PlayerResponse;
 import com.geraldo.reactivebingo.domain.service.PlayerService;
+import com.geraldo.reactivebingo.rest.controller.validate.ObjectIdIsValid;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -121,6 +122,7 @@ public class PlayerController {
     public Mono<PlayerResponse> getById(
         @PathVariable
         @NotBlank(message = GENERIC_REQUIRED)
+        @ObjectIdIsValid
         String id
     ) {
         return service.getById(id)
@@ -169,6 +171,7 @@ public class PlayerController {
         parameters = @Parameter(name = ID, description = PLAYER_FIELD_ID_DESCRIPTION)
     )
     public Mono<Void> delete(
+        @ObjectIdIsValid
         @PathVariable String id
     ) {
         return service.delete(id);
