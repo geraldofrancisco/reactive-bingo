@@ -3,6 +3,7 @@ package com.geraldo.reactivebingo.domain.model.dto.round;
 import com.geraldo.reactivebingo.domain.model.enums.RoundStatus;
 import lombok.Builder;
 import lombok.Data;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;

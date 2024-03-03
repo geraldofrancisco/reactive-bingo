@@ -32,11 +32,11 @@ public interface RoundMapper extends EntityMapper {
     @Mapping(target = "content", qualifiedByName = "toContent")
     PageResponse<RoundResponse> toPage(PageImpl<Round> page);
 
-    @Mapping(source = "pair.right", target = "roundId", qualifiedByName = "toId")
+    @Mapping(source = "pair.right", target = "roundId")
     @Mapping(source = "pair.left.owner.id", target = "owner.id")
     @Mapping(source = "pair.left.owner.nickname", target = "owner.nickname")
     @Mapping(source = "pair.left.numbers", target = "numbers")
-    RoundCardOnlyResponse toRoundCardResponse(Pair<RoundCard, ObjectId>pair);
+    RoundCardOnlyResponse toRoundCardResponse(Pair<RoundCard, String>pair);
 
 
     @Named("toContent")

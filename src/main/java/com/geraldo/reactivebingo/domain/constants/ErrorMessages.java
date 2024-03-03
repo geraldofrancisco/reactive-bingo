@@ -18,4 +18,6 @@ public class ErrorMessages {
 
     public static final String ROUND_STATUS_INVALID = "ROUND_STATUS_INVALID";
     public static final String ROUND_NOT_FOUND = "ROUND_NOT_FOUND";
+    public static final String ROUND_CREATE_CARD_INVALID_STATUS = "ROUND_CREATE_CARD_INVALID_STATUS";
+    public static final String ROUND_CREATE_CARD_EXISTS_CARD_FOR_PLAYER = "ROUND_CREATE_CARD_EXISTS_CARD_FOR_PLAYER";
 }

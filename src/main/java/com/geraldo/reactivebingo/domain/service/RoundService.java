@@ -1,9 +1,11 @@
 package com.geraldo.reactivebingo.domain.service;
 
+import com.geraldo.reactivebingo.domain.execute.GenerateCardExecutor;
 import com.geraldo.reactivebingo.domain.mapper.RoundMapper;
 import com.geraldo.reactivebingo.domain.model.dto.round.Round;
 import com.geraldo.reactivebingo.domain.model.dto.round.RoundCard;
 import com.geraldo.reactivebingo.domain.model.enums.RoundStatus;
+import com.geraldo.reactivebingo.domain.validate.GenerateCardValidate;
 import com.geraldo.reactivebingo.repository.RoundRepository;
 import com.geraldo.reactivebingo.rest.exception.NotFoundException;
 import lombok.AllArgsConstructor;
@@ -23,6 +25,9 @@ import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.ROUND_NOT
 public class RoundService {
     private RoundMapper mapper;
     private RoundRepository repository;
+    private PlayerService playerService;
+    private GenerateCardValidate generateCardValidate;
+    private GenerateCardExecutor generateCardExecutor;
 
     public Mono<PageImpl<Round>> findALlByStatus(RoundStatus status, Pageable pageable) {
         return this.repository.countByStatus(status)
@@ -45,9 +50,7 @@ public class RoundService {
 
     public Mono<Round> create() {
         return Mono.just(Round.builder().build())
-                .map(mapper::toDocument)
-                .flatMap(repository::save)
-                .map(mapper::toRound);
+                .flatMap(this::save);
     }
 
     public Mono<Integer> getTheLastNumberDrawnByTheRoundId(String id) {
@@ -58,8 +61,23 @@ public class RoundService {
         return Mono.empty();
     }
 
-    public Mono<Pair<RoundCard, ObjectId>> generateCard(String roundId, String playerId) {
-        return Mono.empty();
+    public Mono<Pair<RoundCard, String>> generateCard(String roundId, String playerId) {
+        return getById(roundId)
+            .flatMap(round -> playerService.getById(playerId)
+                .flatMap(player -> generateCardValidate.validate(round, player))
+                .flatMap(generateCardExecutor::execute)
+                .flatMap(pair -> Mono.just(pair.getLeft())
+                    .flatMap(this::save)
+                    .map(saved -> Pair.of(pair.getRight(), saved.getId()))
+                )
+            );
+    }
+
+    private Mono<Round> save(Round round) {
+        return Mono.just(round)
+            .map(mapper::toDocument)
+            .flatMap(repository::save)
+            .map(mapper::toRound);
     }
 
 
