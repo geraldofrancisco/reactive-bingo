@@ -19,7 +19,8 @@ public class Round {
     private Integer lastDraw;
     @Builder.Default
     private List<Integer> drawnNumbers = new ArrayList<>();
-    private RoundCard winner;
+    @Builder.Default
+    private List<RoundCard> winners = new ArrayList<>();
     @Builder.Default
     List<RoundCard> cards = new ArrayList<>();
 }

@@ -14,7 +14,7 @@ public record RoundResponse(
         String id,
         RoundStatus status,
         List<Integer> drawnNumbers,
-        RoundCardResponse winner,
+        List<RoundCardResponse> winners,
         List<RoundCardResponse> cards
 
 ) {
