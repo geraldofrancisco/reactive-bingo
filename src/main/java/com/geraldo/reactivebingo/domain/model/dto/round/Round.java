@@ -16,6 +16,7 @@ public class Round {
     private String id;
     @Builder.Default
     private RoundStatus status = CREATED;
+    private Integer lastDraw;
     @Builder.Default
     private List<Integer> drawnNumbers = new ArrayList<>();
     private RoundCard winner;

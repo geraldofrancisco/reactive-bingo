@@ -13,6 +13,7 @@ import java.util.List;
 public record RoundDocument(
         @Id ObjectId id,
         RoundStatus status,
+        Integer lastDraw,
         List<Integer> drawnNumbers,
         RoundCardDocument winner,
         List<RoundCardDocument> cards

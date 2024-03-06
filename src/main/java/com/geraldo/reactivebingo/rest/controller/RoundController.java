@@ -5,6 +5,7 @@ import com.geraldo.reactivebingo.domain.model.enums.RoundStatus;
 import com.geraldo.reactivebingo.domain.model.exception.ExceptionResponse;
 import com.geraldo.reactivebingo.domain.model.response.PageResponse;
 import com.geraldo.reactivebingo.domain.model.response.round.RoundCardOnlyResponse;
+import com.geraldo.reactivebingo.domain.model.response.round.RoundNumberResponse;
 import com.geraldo.reactivebingo.domain.model.response.round.RoundResponse;
 import com.geraldo.reactivebingo.domain.service.RoundService;
 import com.geraldo.reactivebingo.rest.controller.validate.ObjectIdIsValid;
@@ -113,13 +114,14 @@ public class RoundController {
 
     @GetMapping(value = "/{id}/last-number", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
-    public Mono<Integer> getLastNumber(
+    public Mono<RoundNumberResponse> getLastNumber(
         @PathVariable
         @ObjectIdIsValid
         @NotBlank(message = GENERIC_REQUIRED)
         String id
     ){
-        return this.service.getTheLastNumberDrawnByTheRoundId(id);
+        return this.service.getTheLastNumberDrawnByTheRoundId(id)
+                .map(mapper::toRoundNumberResponse);
     }
 
     @PostMapping(produces = APPLICATION_JSON_VALUE)
@@ -129,13 +131,14 @@ public class RoundController {
     }
 
     @PostMapping(value = "/{id}/generate-number", produces = APPLICATION_JSON_VALUE)
-    public Mono<Integer> generateNumber(
+    public Mono<RoundNumberResponse> generateNumber(
         @PathVariable
         @NotBlank(message = GENERIC_REQUIRED)
         @ObjectIdIsValid
         String id
     ) {
-        return service.drawNexNumberByTheRoundId(id);
+        return service.drawNextNumberByTheRoundId(id)
+                .map(mapper::toRoundNumberResponse);
     }
 
     @PostMapping(value = "/{id}/generate-card/player/{playerId}", produces = APPLICATION_JSON_VALUE)

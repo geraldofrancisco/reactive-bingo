@@ -20,4 +20,5 @@ public class ErrorMessages {
     public static final String ROUND_NOT_FOUND = "ROUND_NOT_FOUND";
     public static final String ROUND_CREATE_CARD_INVALID_STATUS = "ROUND_CREATE_CARD_INVALID_STATUS";
     public static final String ROUND_CREATE_CARD_EXISTS_CARD_FOR_PLAYER = "ROUND_CREATE_CARD_EXISTS_CARD_FOR_PLAYER";
+    public static final String ROUND_LAST_NUMBER_DRAWN_NOT_RUNNING = "ROUND_LAST_NUMBER_DRAWN_NOT_RUNNING";
 }

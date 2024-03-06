@@ -7,6 +7,7 @@ import com.geraldo.reactivebingo.domain.model.dto.round.RoundCard;
 import com.geraldo.reactivebingo.domain.model.enums.RoundStatus;
 import com.geraldo.reactivebingo.domain.validate.GenerateCardValidate;
 import com.geraldo.reactivebingo.repository.RoundRepository;
+import com.geraldo.reactivebingo.rest.exception.BusinessException;
 import com.geraldo.reactivebingo.rest.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.ROUND_LAST_NUMBER_DRAWN_NOT_RUNNING;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.ROUND_NOT_FOUND;
+import static com.geraldo.reactivebingo.domain.model.enums.RoundStatus.RUNNING;
 
 @Slf4j
 @Service
@@ -50,14 +53,17 @@ public class RoundService {
 
     public Mono<Round> create() {
         return Mono.just(Round.builder().build())
-                .flatMap(this::save);
+            .flatMap(this::save);
     }
 
     public Mono<Integer> getTheLastNumberDrawnByTheRoundId(String id) {
-        return Mono.empty();
+        return getById(id)
+            .filter(round -> RUNNING.equals(round.getStatus()))
+            .map(Round::getLastDraw)
+            .switchIfEmpty(Mono.error(new BusinessException(ROUND_LAST_NUMBER_DRAWN_NOT_RUNNING)));
     }
 
-    public Mono<Integer> drawNexNumberByTheRoundId(String id) {
+    public Mono<Integer> drawNextNumberByTheRoundId(String id) {
         return Mono.empty();
     }
 
