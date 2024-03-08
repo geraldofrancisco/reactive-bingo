@@ -7,11 +7,13 @@ import java.util.List;
 
 @Builder(toBuilder = true)
 public record RoundDrawResponse(
+        RoundStatus status,
         Integer lastDraw,
         Integer qtdDrawnNumbers,
-        List<Integer> drawnNumbers,
         List<RoundCardResponse> winners,
-        RoundStatus status
+        List<Integer> drawnNumbers
+
+
 ) {
     @Override
     public List<Integer> drawnNumbers() {
