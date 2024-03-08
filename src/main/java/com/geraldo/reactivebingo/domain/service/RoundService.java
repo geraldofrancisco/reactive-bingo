@@ -1,5 +1,6 @@
 package com.geraldo.reactivebingo.domain.service;
 
+import com.geraldo.reactivebingo.domain.execute.DrawExecutor;
 import com.geraldo.reactivebingo.domain.execute.GenerateCardExecutor;
 import com.geraldo.reactivebingo.domain.mapper.RoundMapper;
 import com.geraldo.reactivebingo.domain.model.dto.round.Round;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.ROUND_DRAW_NEXT_NUMBER_THERE_ARE_CHAMPIONS;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.ROUND_LAST_NUMBER_DRAWN_NOT_RUNNING;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.ROUND_NOT_FOUND;
 import static com.geraldo.reactivebingo.domain.model.enums.RoundStatus.RUNNING;
@@ -31,6 +33,7 @@ public class RoundService {
     private PlayerService playerService;
     private GenerateCardValidate generateCardValidate;
     private GenerateCardExecutor generateCardExecutor;
+    private DrawExecutor drawExecutor;
 
     public Mono<PageImpl<Round>> findALlByStatus(RoundStatus status, Pageable pageable) {
         return this.repository.countByStatus(status)
@@ -63,8 +66,12 @@ public class RoundService {
             .switchIfEmpty(Mono.error(new BusinessException(ROUND_LAST_NUMBER_DRAWN_NOT_RUNNING)));
     }
 
-    public Mono<Integer> drawNextNumberByTheRoundId(String id) {
-        return Mono.empty();
+    public Mono<Round> drawNextNumberByTheRoundId(String id) {
+        return getById(id)
+                .filter(round -> round.getWinners().isEmpty())
+                .flatMap(drawExecutor::execute)
+                .flatMap(this::save)
+                .switchIfEmpty(Mono.error(new BusinessException(ROUND_DRAW_NEXT_NUMBER_THERE_ARE_CHAMPIONS)));
     }
 
     public Mono<Pair<RoundCard, String>> generateCard(String roundId, String playerId) {

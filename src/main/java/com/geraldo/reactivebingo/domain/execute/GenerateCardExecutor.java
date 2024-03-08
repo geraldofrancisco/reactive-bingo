@@ -4,7 +4,6 @@ import com.geraldo.reactivebingo.domain.model.dto.player.Player;
 import com.geraldo.reactivebingo.domain.model.dto.round.Round;
 import com.geraldo.reactivebingo.domain.model.dto.round.RoundCard;
 import com.geraldo.reactivebingo.domain.model.dto.round.RoundPlayer;
-import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
@@ -17,10 +16,10 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 @Component
-@AllArgsConstructor
-public class GenerateCardExecutor {
-
-    private Random random;
+public class GenerateCardExecutor extends AbstractExecutor {
+    public GenerateCardExecutor(Random random) {
+        super(random);
+    }
 
     public Mono<Pair<Round, RoundCard>> execute(Pair<Round, Player> playerPair) {
         return Mono.just(playerPair.getRight())
@@ -56,7 +55,7 @@ public class GenerateCardExecutor {
     }
 
     private Integer generateNumber(List<Integer> generated, List<RoundCard> roundCards) {
-        var next = generateNewUnprecedentedNumber(generated);
+        var next = this.generateNewUnprecedentedNumber(generated);
         var list = new ArrayList<>(generated);
         list.add(next);
 
@@ -66,10 +65,5 @@ public class GenerateCardExecutor {
 
     }
 
-    private Integer generateNewUnprecedentedNumber(List<Integer> list) {
-        var next = Integer.valueOf(random.nextInt(100));
-        if (list.stream().anyMatch(next::equals))
-            return generateNewUnprecedentedNumber(list);
-        return next;
-    }
+
 }

@@ -10,7 +10,7 @@ public enum RoundStatus {
 
     public static RoundStatus getByName(String name) {
         return Arrays.stream(values())
-                .filter(r -> r.name().equals(name))
-                .findFirst().orElseThrow();
+            .filter(r -> r.name().equals(name))
+            .findFirst().orElseThrow();
     }
 }

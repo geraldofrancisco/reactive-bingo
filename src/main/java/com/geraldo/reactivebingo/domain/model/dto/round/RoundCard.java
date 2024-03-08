@@ -23,4 +23,8 @@ public class RoundCard {
         });
         return count.get();
     }
+
+    public boolean isWinner(List<Integer> drawNumbers) {
+        return countsRepeatedNumbers(drawNumbers).equals(numbers.size());
+    }
 }

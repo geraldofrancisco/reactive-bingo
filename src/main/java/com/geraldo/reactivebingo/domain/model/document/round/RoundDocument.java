@@ -15,7 +15,7 @@ public record RoundDocument(
         RoundStatus status,
         Integer lastDraw,
         List<Integer> drawnNumbers,
-        RoundCardDocument winner,
+        List<RoundCardDocument> winners,
         List<RoundCardDocument> cards
 ) {
 }

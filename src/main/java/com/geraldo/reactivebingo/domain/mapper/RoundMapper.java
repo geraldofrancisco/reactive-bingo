@@ -5,6 +5,7 @@ import com.geraldo.reactivebingo.domain.model.dto.round.Round;
 import com.geraldo.reactivebingo.domain.model.dto.round.RoundCard;
 import com.geraldo.reactivebingo.domain.model.response.PageResponse;
 import com.geraldo.reactivebingo.domain.model.response.round.RoundCardOnlyResponse;
+import com.geraldo.reactivebingo.domain.model.response.round.RoundDrawResponse;
 import com.geraldo.reactivebingo.domain.model.response.round.RoundNumberResponse;
 import com.geraldo.reactivebingo.domain.model.response.round.RoundResponse;
 import org.apache.commons.lang3.tuple.Pair;
@@ -41,6 +42,7 @@ public interface RoundMapper extends EntityMapper {
 
     RoundNumberResponse toRoundNumberResponse(Integer number);
 
+    RoundDrawResponse toRoundDrawResponse(Round round);
 
     @Named("toContent")
     default List<RoundResponse> toContent(List<Round> list) {
