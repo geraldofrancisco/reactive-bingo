@@ -126,12 +126,14 @@ public class RoundController {
     }
 
     @PostMapping(produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(OK)
     public Mono<RoundResponse> create() {
         return this.service.create()
             .map(mapper::toResponse);
     }
 
     @PostMapping(value = "/{id}/generate-number", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(OK)
     public Mono<RoundDrawResponse> generateNumber(
         @PathVariable
         @NotBlank(message = GENERIC_REQUIRED)
@@ -143,6 +145,7 @@ public class RoundController {
     }
 
     @PostMapping(value = "/{id}/generate-card/player/{playerId}", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(OK)
     public Mono<RoundCardOnlyResponse> generateCard(
         @PathVariable
         @NotBlank(message = GENERIC_REQUIRED)
@@ -154,6 +157,6 @@ public class RoundController {
         String playerId
     ) {
         return this.service.generateCard(id, playerId)
-                .map(mapper::toRoundCardResponse);
+            .map(mapper::toRoundCardResponse);
     }
 }

@@ -11,6 +11,7 @@ import org.bson.types.ObjectId;
 
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.PLAYER_FIELD_ID;
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.PLAYER_FIELD_NICKNAME;
+import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.GENERIC_INVALID_OBJECT_ID;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.GENERIC_REQUIRED;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.PLAYER_ID_INVALID;
 

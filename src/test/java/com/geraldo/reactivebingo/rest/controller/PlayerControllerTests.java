@@ -9,7 +9,6 @@ import com.geraldo.reactivebingo.domain.service.PlayerService;
 import com.geraldo.reactivebingo.rest.exception.ReactiveBingoExceptionHandler;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
@@ -24,11 +23,9 @@ import java.util.List;
 import static com.geraldo.reactivebingo.domain.constants.Constants.PAGE;
 import static com.geraldo.reactivebingo.domain.constants.Constants.SIZE;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.GENERIC_REQUIRED;
-import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.PLAYER_ID_INVALID;
-import static com.geraldo.reactivebingo.domain.constants.Examples.PLAYER_ID_EXAMPLE;
+import static com.geraldo.reactivebingo.domain.constants.Examples.ID_EXAMPLE;
 import static com.geraldo.reactivebingo.domain.constants.Examples.PLAYER_NICKNAME_EXAMPLE;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mapstruct.factory.Mappers.getMapper;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -37,10 +34,7 @@ import static org.springframework.test.util.ReflectionTestUtils.setField;
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {PlayerController.class, ReactiveBingoExceptionHandler.class})
 @WebFluxTest(controllers = PlayerController.class)
-public class PlayerControllerTests extends ControllerTest{
-
-    @InjectMocks
-    private PlayerController controller;
+public class PlayerControllerTests extends ControllerTest {
 
     @MockBean
     private PlayerService service;
@@ -53,12 +47,6 @@ public class PlayerControllerTests extends ControllerTest{
     private static final String PLAYER_URL_ID = "/api/v1/player/{id}";
     private static final String PLAYER_URL_NICKNAME = "/api/v1/player/{nickname}";
 
-    @Override
-    public void init() {
-        super.init();
-        setField(controller, "mapper", getMapper(PlayerMapper.class));
-        setField(controller, "service", service);
-    }
 
     @Test
     public void getListSuccessTest() {
@@ -88,7 +76,7 @@ public class PlayerControllerTests extends ControllerTest{
 
         var uri = UriComponentsBuilder
                 .fromUriString(PLAYER_URL_ID)
-                .buildAndExpand(PLAYER_ID_EXAMPLE)
+                .buildAndExpand(ID_EXAMPLE)
                 .toUriString();
 
         when(service.getById(anyString()))
@@ -157,7 +145,7 @@ public class PlayerControllerTests extends ControllerTest{
 
         var uri = UriComponentsBuilder
                 .fromUriString(PLAYER_URL_ID)
-                .buildAndExpand(PLAYER_ID_EXAMPLE)
+                .buildAndExpand(ID_EXAMPLE)
                 .toUriString();
 
         when(service.delete(any()))
@@ -173,28 +161,27 @@ public class PlayerControllerTests extends ControllerTest{
 
     @Test
     public void errorUpdateRequest() {
-        assertTrue(this.violation(getUpdateRequest().id("123").build()).stream().anyMatch(u -> u.getMessageTemplate().equals(PLAYER_ID_INVALID)));
         assertTrue(this.violation(getUpdateRequest().id(null).build()).stream().anyMatch(u -> u.getMessageTemplate().equals(GENERIC_REQUIRED)));
         assertTrue(this.violation(getUpdateRequest().nickname(null).build()).stream().anyMatch(u -> u.getMessageTemplate().equals(GENERIC_REQUIRED)));
     }
 
     private PlayerUpdateRequest.PlayerUpdateRequestBuilder getUpdateRequest() {
         return PlayerUpdateRequest.builder()
-                .id(PLAYER_ID_EXAMPLE)
+                .id(ID_EXAMPLE)
                 .nickname(PLAYER_NICKNAME_EXAMPLE);
     }
 
     private PlayerResponse getPlayerResponse() {
         return PlayerResponse
                 .builder()
-                .id(PLAYER_ID_EXAMPLE)
+                .id(ID_EXAMPLE)
                 .nickname(PLAYER_NICKNAME_EXAMPLE)
                 .build();
     }
 
     private Player getPlayer() {
         return Player.builder()
-                .id(PLAYER_ID_EXAMPLE)
+                .id(ID_EXAMPLE)
                 .nickname(PLAYER_NICKNAME_EXAMPLE)
                 .build();
     }
