@@ -9,7 +9,7 @@ import java.util.Random;
 public abstract class AbstractExecutor {
 
     private Random random;
-    protected Integer generateNewUnprecedentedNumber(List<Integer> list) {
+    public Integer generateNewUnprecedentedNumber(List<Integer> list) {
         var next = Integer.valueOf(random.nextInt(100));
         if (list.stream().anyMatch(next::equals))
             return generateNewUnprecedentedNumber(list);

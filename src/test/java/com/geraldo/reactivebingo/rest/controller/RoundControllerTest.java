@@ -1,11 +1,9 @@
 package com.geraldo.reactivebingo.rest.controller;
 
 import com.geraldo.reactivebingo.domain.mapper.RoundMapper;
-import com.geraldo.reactivebingo.domain.model.dto.player.Player;
 import com.geraldo.reactivebingo.domain.model.dto.round.Round;
 import com.geraldo.reactivebingo.domain.model.dto.round.RoundCard;
 import com.geraldo.reactivebingo.domain.model.response.PageResponse;
-import com.geraldo.reactivebingo.domain.model.response.player.PlayerResponse;
 import com.geraldo.reactivebingo.domain.model.response.round.RoundCardOnlyResponse;
 import com.geraldo.reactivebingo.domain.model.response.round.RoundDrawResponse;
 import com.geraldo.reactivebingo.domain.model.response.round.RoundNumberResponse;

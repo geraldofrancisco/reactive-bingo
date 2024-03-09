@@ -21,6 +21,7 @@ import reactor.core.publisher.Mono;
 
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.ROUND_LAST_NUMBER_DRAWN_NOT_RUNNING;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.ROUND_NOT_FOUND;
+import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.ROUND_NUMBER_OF_INVALID_CARDS_FOR_THE_ROUND;
 import static com.geraldo.reactivebingo.domain.model.enums.RoundStatus.RUNNING;
 
 @Slf4j
@@ -40,7 +41,8 @@ public class RoundService {
                 .map(this.mapper::toRound)
                 .collectList()
                 .map(list -> new PageImpl<>(list, pageable, total))
-            );
+            )
+            .doFirst(() -> log.info("Search round by status in a paginated way"));
     }
 
     public Mono<Round> getById(String id) {
@@ -55,7 +57,8 @@ public class RoundService {
 
     public Mono<Round> create() {
         return Mono.just(Round.builder().build())
-            .flatMap(this::save);
+            .flatMap(this::save)
+            .doFirst(() -> log.info("Creating new round record"));
     }
 
     public Mono<Integer> getTheLastNumberDrawnByTheRoundId(String id) {
@@ -67,12 +70,14 @@ public class RoundService {
 
     public Mono<Round> drawNextNumberByTheRoundId(String id) {
         return getById(id)
+            .filter(r -> r.getCards().size() > 1)
             .flatMap(r -> Mono.just(r)
                 .filter(round -> round.getWinners().isEmpty())
                 .flatMap(drawExecutor::execute)
                 .flatMap(this::save)
                 .defaultIfEmpty(r)
-            );
+            )
+            .switchIfEmpty(Mono.error(new BusinessException(ROUND_NUMBER_OF_INVALID_CARDS_FOR_THE_ROUND)));
     }
 
     public Mono<Pair<RoundCard, String>> generateCard(String roundId, String playerId) {
