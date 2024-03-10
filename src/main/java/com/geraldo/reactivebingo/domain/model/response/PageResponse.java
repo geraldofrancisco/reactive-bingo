@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
 import java.util.List;
-import java.util.Objects;
 
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.PAGE_RESPONSE_CONTENT;
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.PAGE_RESPONSE_HAS_NEXT;

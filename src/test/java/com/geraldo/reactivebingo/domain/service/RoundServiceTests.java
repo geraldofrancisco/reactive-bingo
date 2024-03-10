@@ -17,7 +17,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import reactor.core.publisher.Flux;
@@ -27,7 +26,6 @@ import reactor.test.StepVerifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.ROUND_CREATE_CARD_EXISTS_CARD_FOR_PLAYER;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.ROUND_CREATE_CARD_INVALID_STATUS;
@@ -43,7 +41,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
 public class RoundServiceTests {
     @InjectMocks
     private RoundService service;

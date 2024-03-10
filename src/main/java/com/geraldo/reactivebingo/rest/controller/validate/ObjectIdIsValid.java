@@ -1,7 +1,6 @@
 package com.geraldo.reactivebingo.rest.controller.validate;
 
 import com.geraldo.reactivebingo.rest.controller.validate.impl.ObjectIdIsValidImpl;
-import com.geraldo.reactivebingo.rest.controller.validate.impl.ValueOfEnumImpl;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import jakarta.validation.ReportAsSingleViolation;

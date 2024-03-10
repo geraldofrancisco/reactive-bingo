@@ -18,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(PARAMETER)
 @ReportAsSingleViolation
 public @interface ValueOfEnum {
-    Class<? extends Enum<?>> enumClass();
+    Class<? extends Enum> enumClass();
     String message() default "Value is not valid";
 
     Class<?>[] groups() default {};

@@ -3,7 +3,6 @@ package com.geraldo.reactivebingo.rest.controller.validate.impl;
 import com.geraldo.reactivebingo.rest.controller.validate.ValueOfEnum;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
