@@ -14,6 +14,7 @@ import static com.geraldo.reactivebingo.domain.constants.Descriptions.PAGE_RESPO
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.PAGE_RESPONSE_TOTAL_ELEMENTS;
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.PAGE_RESPONSE_TOTAL_PAGES;
 
+@Builder(toBuilder = true)
 public record PageResponse<T>(
         @Schema(description = PAGE_RESPONSE_CONTENT)
         List<T> content,
@@ -36,14 +37,4 @@ public record PageResponse<T>(
         @Schema(description = PAGE_RESPONSE_SIZE)
         Integer size
 ) {
-    @Builder(toBuilder = true)
-    public PageResponse {
-    }
-
-    @Override
-    public List<T> content() {
-        if(Objects.isNull(content))
-            return List.of();
-        return content;
-    }
 }

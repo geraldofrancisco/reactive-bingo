@@ -55,30 +55,27 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Validated
 @RequiredArgsConstructor
 @Tag(name = ROUND_CONTROLLER, description = ROUND_CONTROLLER_DESCRIPTION)
-@ApiResponses({
-    @ApiResponse(
-        responseCode = EXCEPTION_CODE_BAD_REQUEST,
-        content = @Content(
-            mediaType = APPLICATION_JSON_VALUE,
-            schema = @Schema(implementation = ExceptionResponse.class)
-        )
-    ),
-    @ApiResponse(
-        responseCode = EXCEPTION_CODE_NOT_FOUND,
-        content = @Content(
-            mediaType = APPLICATION_JSON_VALUE,
-            schema = @Schema(implementation = ExceptionResponse.class)
-        )
+@ApiResponse(
+    responseCode = EXCEPTION_CODE_BAD_REQUEST,
+    content = @Content(
+        mediaType = APPLICATION_JSON_VALUE,
+        schema = @Schema(implementation = ExceptionResponse.class)
     )
-    ,
-    @ApiResponse(
-        responseCode = EXCEPTION_CODE_UNPROCESSABLE_ENTITY,
-        content = @Content(
-            mediaType = APPLICATION_JSON_VALUE,
-            schema = @Schema(implementation = ExceptionResponse.class)
-        )
+)
+@ApiResponse(
+    responseCode = EXCEPTION_CODE_NOT_FOUND,
+    content = @Content(
+        mediaType = APPLICATION_JSON_VALUE,
+        schema = @Schema(implementation = ExceptionResponse.class)
     )
-})
+)
+@ApiResponse(
+    responseCode = EXCEPTION_CODE_UNPROCESSABLE_ENTITY,
+    content = @Content(
+        mediaType = APPLICATION_JSON_VALUE,
+        schema = @Schema(implementation = ExceptionResponse.class)
+    )
+)
 public class RoundController {
 
     private final RoundService service;
@@ -105,8 +102,8 @@ public class RoundController {
     @ResponseStatus(OK)
     public Mono<RoundResponse> getById(
         @PathVariable
-        @NotBlank(message = GENERIC_REQUIRED)
         @ObjectIdIsValid
+        @NotBlank(message = GENERIC_REQUIRED)
         String id
     ){
         return this.service.getById(id)
@@ -136,8 +133,8 @@ public class RoundController {
     @ResponseStatus(OK)
     public Mono<RoundDrawResponse> generateNumber(
         @PathVariable
-        @NotBlank(message = GENERIC_REQUIRED)
         @ObjectIdIsValid
+        @NotBlank(message = GENERIC_REQUIRED)
         String id
     ) {
         return service.drawNextNumberByTheRoundId(id)

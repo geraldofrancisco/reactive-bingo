@@ -9,7 +9,6 @@ import com.geraldo.reactivebingo.domain.model.response.round.RoundDrawResponse;
 import com.geraldo.reactivebingo.domain.model.response.round.RoundNumberResponse;
 import com.geraldo.reactivebingo.domain.model.response.round.RoundResponse;
 import org.apache.commons.lang3.tuple.Pair;
-import org.bson.types.ObjectId;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

@@ -9,6 +9,6 @@ import org.bson.types.ObjectId;
 public class ObjectIdIsValidImpl implements ConstraintValidator<ObjectIdIsValid, String> {
     @Override
     public boolean isValid(String id, ConstraintValidatorContext constraintValidatorContext) {
-        return StringUtils.isEmpty(id) || ObjectId.isValid(id);
+        return ObjectId.isValid(id);
     }
 }

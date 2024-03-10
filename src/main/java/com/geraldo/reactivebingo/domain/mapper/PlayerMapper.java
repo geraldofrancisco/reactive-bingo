@@ -5,8 +5,6 @@ import com.geraldo.reactivebingo.domain.model.dto.player.Player;
 import com.geraldo.reactivebingo.domain.model.request.player.PlayerUpdateRequest;
 import com.geraldo.reactivebingo.domain.model.response.PageResponse;
 import com.geraldo.reactivebingo.domain.model.response.player.PlayerResponse;
-import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

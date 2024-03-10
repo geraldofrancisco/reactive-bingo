@@ -67,30 +67,28 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Validated
 @RequiredArgsConstructor
 @Tag(name = PLAYER_CONTROLLER, description = PLAYER_CONTROLLER_DESCRIPTION)
-@ApiResponses({
-    @ApiResponse(
-        responseCode = EXCEPTION_CODE_BAD_REQUEST,
-        content = @Content(
-            mediaType = APPLICATION_JSON_VALUE,
-            schema = @Schema(implementation = ExceptionResponse.class)
-        )
-    ),
-    @ApiResponse(
-        responseCode = EXCEPTION_CODE_NOT_FOUND,
-        content = @Content(
-            mediaType = APPLICATION_JSON_VALUE,
-            schema = @Schema(implementation = ExceptionResponse.class)
-        )
+@ApiResponse(
+    responseCode = EXCEPTION_CODE_BAD_REQUEST,
+    content = @Content(
+        mediaType = APPLICATION_JSON_VALUE,
+        schema = @Schema(implementation = ExceptionResponse.class)
     )
-    ,
-    @ApiResponse(
-        responseCode = EXCEPTION_CODE_UNPROCESSABLE_ENTITY,
-        content = @Content(
-            mediaType = APPLICATION_JSON_VALUE,
-            schema = @Schema(implementation = ExceptionResponse.class)
-        )
+)
+@ApiResponse(
+    responseCode = EXCEPTION_CODE_NOT_FOUND,
+    content = @Content(
+        mediaType = APPLICATION_JSON_VALUE,
+        schema = @Schema(implementation = ExceptionResponse.class)
     )
-})
+)
+
+@ApiResponse(
+    responseCode = EXCEPTION_CODE_UNPROCESSABLE_ENTITY,
+    content = @Content(
+        mediaType = APPLICATION_JSON_VALUE,
+        schema = @Schema(implementation = ExceptionResponse.class)
+    )
+)
 public class PlayerController {
 
     private final PlayerService service;
@@ -171,6 +169,7 @@ public class PlayerController {
         parameters = @Parameter(name = ID, description = PLAYER_FIELD_ID_DESCRIPTION)
     )
     public Mono<Void> delete(
+        @NotBlank(message = GENERIC_REQUIRED)
         @ObjectIdIsValid
         @PathVariable String id
     ) {

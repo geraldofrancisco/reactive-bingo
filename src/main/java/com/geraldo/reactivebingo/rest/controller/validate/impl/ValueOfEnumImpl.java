@@ -22,7 +22,6 @@ public class ValueOfEnumImpl implements ConstraintValidator<ValueOfEnum, String>
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
-        return StringUtils.isEmpty(value) ||
-            this.values.stream().anyMatch(s -> s.equals(value));
+        return this.values.stream().anyMatch(s -> s.equals(value));
     }
 }
