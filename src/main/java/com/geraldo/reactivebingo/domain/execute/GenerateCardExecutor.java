@@ -17,9 +17,6 @@ import java.util.stream.IntStream;
 
 @Component
 public class GenerateCardExecutor extends AbstractExecutor {
-    public GenerateCardExecutor(Random random) {
-        super(random);
-    }
 
     public Mono<Pair<Round, RoundCard>> execute(Pair<Round, Player> playerPair) {
         return Mono.just(playerPair.getRight())

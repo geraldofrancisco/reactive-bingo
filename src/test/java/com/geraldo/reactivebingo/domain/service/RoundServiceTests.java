@@ -10,9 +10,8 @@ import com.geraldo.reactivebingo.domain.model.dto.round.RoundCard;
 import com.geraldo.reactivebingo.domain.model.dto.round.RoundPlayer;
 import com.geraldo.reactivebingo.domain.validate.GenerateCardValidate;
 import com.geraldo.reactivebingo.repository.RoundRepository;
+import org.apache.commons.lang3.tuple.Pair;
 import org.bson.types.ObjectId;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -42,8 +41,6 @@ import static com.geraldo.reactivebingo.domain.model.enums.RoundStatus.RUNNING;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-import static org.mockito.internal.util.MockUtil.createMock;
-import static org.springframework.test.util.ReflectionTestUtils.setField;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
@@ -68,10 +65,6 @@ public class RoundServiceTests {
 
     @Mock
     private DrawExecutor drawExecutor;
-
-    @Mock
-    private Random random;
-
 
 
     @Test
@@ -183,7 +176,7 @@ public class RoundServiceTests {
 
         getByIdSuccessTraining(round);
         when(drawExecutor.execute(any()))
-                .thenCallRealMethod();
+                .thenReturn(Mono.just(round));
         saveTraining(round);
 
         var result = service.drawNextNumberByTheRoundId(ID_EXAMPLE);
@@ -196,21 +189,17 @@ public class RoundServiceTests {
     @Test
     public void drawNextNumberByTheRoundIdExecuteWinnerSuccessTest() {
         var round = getRound()
-            .drawnNumbers(getElements())
-            .cards(List.of(getRoundCard().build(), getRoundCard().build()))
-            .build();
+                .cards(List.of(getRoundCard().build(), getRoundCard().build()))
+                .winners(List.of(getRoundCard().build()))
+                .build();
 
         getByIdSuccessTraining(round);
-        when(drawExecutor.execute(any()))
-            .thenCallRealMethod();
-
-        saveTraining(round);
 
         var result = service.drawNextNumberByTheRoundId(ID_EXAMPLE);
 
         StepVerifier.create(result)
-            .expectNextMatches(t -> !t.getWinners().isEmpty())
-            .verifyComplete();
+                .expectNextMatches(t -> !t.getWinners().isEmpty())
+                .verifyComplete();
     }
 
     @Test
@@ -238,7 +227,7 @@ public class RoundServiceTests {
         when(generateCardValidate.validate(any(), any()))
                 .thenCallRealMethod();
         when(generateCardExecutor.execute(any()))
-                .thenCallRealMethod();
+                .thenReturn(Mono.just(Pair.of(round, getRoundCard().build())));
         saveTraining(round);
 
         var result = service.generateCard(ID_EXAMPLE, ID_EXAMPLE);

@@ -18,7 +18,6 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import java.util.List;
-import java.util.Random;
 
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.PLAYER_ALREADY_REGISTERED;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.PLAYER_NOT_FOUND;
@@ -42,8 +41,6 @@ public class PlayerServiceTests {
     @Mock
     private PlayerMapper mapper;
 
-    @Mock
-    private Random random;
 
     @Test
     public void createSuccessTest() {

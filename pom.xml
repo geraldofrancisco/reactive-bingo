@@ -23,6 +23,7 @@
 		<sonar.exclusions>org/binarytherapy/generated/**/*, **/GuiceBindComposer.java</sonar.exclusions>
 		<sonar.dynamic>reuseReports</sonar.dynamic>
 		<sonar.coverage.exclusions>
+			src/main/java/com/geraldo/reactivebingo/*,
 			src/main/java/com/geraldo/reactivebingo/domain/mapper/*,
 			src/main/java/com/geraldo/reactivebingo/domain/model/document/**/*,
 			src/main/java/com/geraldo/reactivebingo/domain/model/dto/**/*,

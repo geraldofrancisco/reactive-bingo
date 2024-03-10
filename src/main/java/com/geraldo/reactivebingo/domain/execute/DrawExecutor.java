@@ -12,9 +12,7 @@ import static com.geraldo.reactivebingo.domain.model.enums.RoundStatus.RUNNING;
 
 @Component
 public class DrawExecutor extends AbstractExecutor {
-    public DrawExecutor(Random random) {
-        super(random);
-    }
+
 
     public Mono<Round> execute(Round round) {
         return Mono.just(round)
