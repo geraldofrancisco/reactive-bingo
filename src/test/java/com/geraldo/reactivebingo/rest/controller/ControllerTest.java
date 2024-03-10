@@ -5,7 +5,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
@@ -15,12 +15,12 @@ import java.util.Set;
 public abstract class ControllerTest {
     @Autowired
     public WebTestClient client;
-    private Validator validator;
+    private static Validator validator;
 
-    @Before
-    public void init() {
+    @BeforeAll
+    public static void init() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        this.validator = factory.getValidator();
+        validator = factory.getValidator();
     }
 
     protected Set<ConstraintViolation<Object>> violation(final Object request) {

@@ -1,6 +1,5 @@
 package com.geraldo.reactivebingo.domain.service;
 
-import com.geraldo.reactivebingo.domain.execute.AbstractExecutor;
 import com.geraldo.reactivebingo.domain.execute.DrawExecutor;
 import com.geraldo.reactivebingo.domain.execute.GenerateCardExecutor;
 import com.geraldo.reactivebingo.domain.mapper.RoundMapper;
@@ -12,15 +11,16 @@ import com.geraldo.reactivebingo.domain.model.dto.round.RoundPlayer;
 import com.geraldo.reactivebingo.domain.validate.GenerateCardValidate;
 import com.geraldo.reactivebingo.repository.RoundRepository;
 import org.bson.types.ObjectId;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.test.context.junit4.SpringRunner;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -40,12 +40,12 @@ import static com.geraldo.reactivebingo.domain.model.enums.RoundStatus.CREATED;
 import static com.geraldo.reactivebingo.domain.model.enums.RoundStatus.FINISHED;
 import static com.geraldo.reactivebingo.domain.model.enums.RoundStatus.RUNNING;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.mockito.internal.util.MockUtil.createMock;
 import static org.springframework.test.util.ReflectionTestUtils.setField;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 public class RoundServiceTests {
     @InjectMocks
@@ -64,17 +64,15 @@ public class RoundServiceTests {
     private GenerateCardValidate generateCardValidate;
 
     @Mock
-    private GenerateCardExecutor generateCardExecutor;
+    private  GenerateCardExecutor generateCardExecutor;
 
     @Mock
     private DrawExecutor drawExecutor;
 
-    @Before
-    public void init() {
-        var random = new Random();
-        setField(drawExecutor, "random", random);
-        setField(generateCardExecutor, "random", random);
-    }
+    @Mock
+    private Random random;
+
+
 
     @Test
     public void findALlByStatusSuccessTest() {

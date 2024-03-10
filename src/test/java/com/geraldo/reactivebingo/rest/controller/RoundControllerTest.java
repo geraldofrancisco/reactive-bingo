@@ -11,14 +11,14 @@ import com.geraldo.reactivebingo.domain.model.response.round.RoundResponse;
 import com.geraldo.reactivebingo.domain.service.RoundService;
 import com.geraldo.reactivebingo.rest.exception.ReactiveBingoExceptionHandler;
 import org.apache.commons.lang3.tuple.Pair;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
@@ -29,7 +29,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(MockitoExtension.class)
 @ContextConfiguration(classes = {RoundController.class, ReactiveBingoExceptionHandler.class})
 @WebFluxTest(controllers = RoundController.class)
 public class RoundControllerTest extends ControllerTest {
