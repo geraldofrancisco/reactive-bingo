@@ -11,6 +11,7 @@ import com.geraldo.reactivebingo.domain.model.response.round.RoundResponse;
 import com.geraldo.reactivebingo.domain.service.RoundService;
 import com.geraldo.reactivebingo.rest.controller.validate.ObjectIdIsValid;
 import com.geraldo.reactivebingo.rest.controller.validate.ValueOfEnum;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -42,6 +43,18 @@ import static com.geraldo.reactivebingo.domain.constants.Constants.STATUS;
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.PAGE_DESCRIPTION;
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_CONTROLLER;
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_CONTROLLER_DESCRIPTION;
+import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_CREATE_DESCRIPTION;
+import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_CREATE_SUMMARY;
+import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_GENERATE_CARD_DESCRIPTION;
+import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_GENERATE_CARD_SUMMARY;
+import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_GENERATE_NUMBER_DESCRIPTION;
+import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_GENERATE_NUMBER_SUMMARY;
+import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_GET_BY_ID_DESCRIPTION;
+import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_GET_BY_ID_SUMMARY;
+import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_GET_LAST_NUMBER_DESCRIPTION;
+import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_GET_LAST_NUMBER_SUMMARY;
+import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_GET_LIST_DESCRIPTION;
+import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_GET_LIST_SUMMARY;
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.ROUND_STATUS_DESCRIPTION;
 import static com.geraldo.reactivebingo.domain.constants.Descriptions.SIZE_DESCRIPTION;
 import static com.geraldo.reactivebingo.domain.constants.ErrorMessages.GENERIC_REQUIRED;
@@ -83,6 +96,10 @@ public class RoundController {
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
+    @Operation(
+        summary = ROUND_GET_LIST_SUMMARY,
+        description = ROUND_GET_LIST_DESCRIPTION
+    )
     public Mono<PageResponse<RoundResponse>> getList(
         @Parameter(name = PAGE, description = PAGE_DESCRIPTION)
         @RequestParam(name = PAGE, defaultValue = DEFAULT_PAGE, required = false) int page,
@@ -100,6 +117,10 @@ public class RoundController {
 
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
+    @Operation(
+        summary = ROUND_GET_BY_ID_SUMMARY,
+        description = ROUND_GET_BY_ID_DESCRIPTION
+    )
     public Mono<RoundResponse> getById(
         @PathVariable
         @ObjectIdIsValid
@@ -112,6 +133,10 @@ public class RoundController {
 
     @GetMapping(value = "/{id}/last-number", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
+    @Operation(
+        summary = ROUND_GET_LAST_NUMBER_SUMMARY,
+        description = ROUND_GET_LAST_NUMBER_DESCRIPTION
+    )
     public Mono<RoundNumberResponse> getLastNumber(
         @PathVariable
         @ObjectIdIsValid
@@ -124,6 +149,10 @@ public class RoundController {
 
     @PostMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
+    @Operation(
+        summary = ROUND_CREATE_SUMMARY,
+        description = ROUND_CREATE_DESCRIPTION
+    )
     public Mono<RoundResponse> create() {
         return this.service.create()
             .map(mapper::toResponse);
@@ -131,6 +160,10 @@ public class RoundController {
 
     @PostMapping(value = "/{id}/generate-number", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
+    @Operation(
+        summary = ROUND_GENERATE_NUMBER_SUMMARY,
+        description = ROUND_GENERATE_NUMBER_DESCRIPTION
+    )
     public Mono<RoundDrawResponse> generateNumber(
         @PathVariable
         @ObjectIdIsValid
@@ -143,6 +176,10 @@ public class RoundController {
 
     @PostMapping(value = "/{id}/generate-card/player/{playerId}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
+    @Operation(
+        summary = ROUND_GENERATE_CARD_SUMMARY,
+        description = ROUND_GENERATE_CARD_DESCRIPTION
+    )
     public Mono<RoundCardOnlyResponse> generateCard(
         @PathVariable
         @NotBlank(message = GENERIC_REQUIRED)

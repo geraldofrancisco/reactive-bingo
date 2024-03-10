@@ -50,5 +50,27 @@ public class Descriptions {
     //ROUND
     public static final String ROUND_CONTROLLER = "Controlador de rodadas";
     public static final String ROUND_CONTROLLER_DESCRIPTION = "Controlador para operações de criação e execução do bingo";
+    public static final String ROUND_GET_LIST_SUMMARY = "Endpoint para listar rodadas";
+    public static final String ROUND_GET_LIST_DESCRIPTION = "Realiza consulta das rodadas geradas pelo status de forma paginada";
+    public static final String ROUND_GET_BY_ID_SUMMARY = "Endpoint para buscar uma rodada";
+    public static final String ROUND_GET_BY_ID_DESCRIPTION = "Realiza consulta da rodada pelo id";
+    public static final String ROUND_GET_LAST_NUMBER_SUMMARY = "Endpoint para buscar ultimo número gerado";
+    public static final String ROUND_GET_LAST_NUMBER_DESCRIPTION = "Realiza consulta do último número gerado pelo id da rodada";
+    public static final String ROUND_CREATE_SUMMARY = "Endpoint para criação da rodada";
+    public static final String ROUND_CREATE_DESCRIPTION = "Realiza criação da rodada";
+    public static final String ROUND_GENERATE_NUMBER_SUMMARY = "Endpoint para gerar um número";
+    public static final String ROUND_GENERATE_NUMBER_DESCRIPTION = "Gera um novo número e verifica se houve um ou mais vencedores";
+    public static final String ROUND_GENERATE_CARD_SUMMARY = "Endpoint para gerar um cartão";
+    public static final String ROUND_GENERATE_CARD_DESCRIPTION = "Gera um novo cartão para um jogador para uma determinada rodada";
     public static final String ROUND_STATUS_DESCRIPTION = "Status da rodada. <br/><br/> Default value: CREATED";
+    public static final String ROUND_ID_DESCRIPTION = "Identificador da rodada";
+    public static final String ROUND_DRAWN_NUMBERS = "Números aleatórios sorteados";
+    public static final String ROUND_WINNERS = "Vencedor(es) da rodada";
+    public static final String ROUND_CARDS = "Cartões cadastrados para a rodada";
+    public static final String ROUND_LAST_NUMBER = "Último número sorteado da rodada";
+    public static final String ROUND_QTD_DRAWN_NUMBERS = "Quantidade de números sorteados nessa rodada";
+    public static final String ROUND_CARD_NUMBERS = "20 números aleatórios do cartão";
+    public static final String ROUND_CARD_OWNER = "Dono do cartão";
+    public static final String ROUND_PLAYER_NICKNAME = "Nome/Apelido do jogador";
+    public static final String ROUND_PLAYER_ID = "Identificador do jogador";
 }
