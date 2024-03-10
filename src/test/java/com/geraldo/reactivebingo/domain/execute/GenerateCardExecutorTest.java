@@ -19,7 +19,7 @@ import java.util.stream.IntStream;
 import static com.geraldo.reactivebingo.domain.constants.Examples.ID_EXAMPLE;
 
 @ExtendWith(MockitoExtension.class)
-public class GenerateCardExecutorTest {
+class GenerateCardExecutorTest {
     @InjectMocks
     private GenerateCardExecutor executor;
 

@@ -32,7 +32,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 @ContextConfiguration(classes = {RoundController.class, ReactiveBingoExceptionHandler.class})
 @WebFluxTest(controllers = RoundController.class)
-public class RoundControllerTest extends ControllerTest {
+class RoundControllerTest extends ControllerTest {
 
     @MockBean
     private RoundService service;
@@ -47,7 +47,7 @@ public class RoundControllerTest extends ControllerTest {
     private static final String ROUND_URL_GENERATE_CARD = "/api/v1/round/{id}/generate-card/player/{playerId}";
 
     @Test
-    public void getAllSuccessTest() {
+    void getAllSuccessTest() {
 
         when(service.findALlByStatus(any(), any()))
             .thenReturn(Mono.just(getReturnSuccessList()));
@@ -63,7 +63,7 @@ public class RoundControllerTest extends ControllerTest {
     }
 
     @Test
-    public void getByIdSuccessTest() {
+    void getByIdSuccessTest() {
         when(service.getById(anyString()))
                 .thenReturn(Mono.just(getRound()));
         when(mapper.toResponse(any()))
@@ -84,7 +84,7 @@ public class RoundControllerTest extends ControllerTest {
     }
 
     @Test
-    public void getByIdInvalidIdErrorTest() {
+    void getByIdInvalidIdErrorTest() {
 
         var uri = UriComponentsBuilder
             .fromUriString(ROUND_URL_ID)
@@ -101,7 +101,7 @@ public class RoundControllerTest extends ControllerTest {
     }
 
     @Test
-    public void getByIdBlankIdErrorTest() {
+    void getByIdBlankIdErrorTest() {
 
         var uri = UriComponentsBuilder
             .fromUriString(ROUND_URL_ID)
@@ -118,7 +118,7 @@ public class RoundControllerTest extends ControllerTest {
     }
 
     @Test
-    public void createSuccessTest() {
+    void createSuccessTest() {
         when(service.create())
                 .thenReturn(Mono.just(getRound()));
         when(mapper.toResponse(any()))
@@ -133,7 +133,7 @@ public class RoundControllerTest extends ControllerTest {
     }
 
     @Test
-    public void getLastNumberSuccessTest() {
+    void getLastNumberSuccessTest() {
         when(service.getTheLastNumberDrawnByTheRoundId(anyString()))
                 .thenReturn(Mono.just(123));
         when(mapper.toRoundNumberResponse(any()))
@@ -154,7 +154,7 @@ public class RoundControllerTest extends ControllerTest {
     }
 
     @Test
-    public void getLastNumberInvalidIdErrorTest() {
+    void getLastNumberInvalidIdErrorTest() {
 
         var uri = UriComponentsBuilder
             .fromUriString(ROUND_URL_LAST_NUMBER)
@@ -171,7 +171,7 @@ public class RoundControllerTest extends ControllerTest {
     }
 
     @Test
-    public void getLastNumberBlankIdErrorTest() {
+    void getLastNumberBlankIdErrorTest() {
 
         var uri = UriComponentsBuilder
             .fromUriString(ROUND_URL_LAST_NUMBER)
@@ -187,7 +187,7 @@ public class RoundControllerTest extends ControllerTest {
     }
 
     @Test
-    public void generateNumberSuccessTest() {
+    void generateNumberSuccessTest() {
         when(service.drawNextNumberByTheRoundId(anyString()))
                 .thenReturn(Mono.just(getRound()));
         when(mapper.toRoundDrawResponse(any()))
@@ -208,7 +208,7 @@ public class RoundControllerTest extends ControllerTest {
     }
 
     @Test
-    public void generateNumberInvalidIdErrorTest() {
+    void generateNumberInvalidIdErrorTest() {
 
         var uri = UriComponentsBuilder
                 .fromUriString(ROUND_URL_GENERATE_NUMBER)
@@ -225,7 +225,7 @@ public class RoundControllerTest extends ControllerTest {
     }
 
     @Test
-    public void generateNumberBlankIdErrorTest() {
+    void generateNumberBlankIdErrorTest() {
 
         var uri = UriComponentsBuilder
                 .fromUriString(ROUND_URL_GENERATE_NUMBER)
@@ -241,7 +241,7 @@ public class RoundControllerTest extends ControllerTest {
     }
 
     @Test
-    public void generateCardSuccessTest() {
+    void generateCardSuccessTest() {
         when(service.generateCard(anyString(), anyString()))
                 .thenReturn(Mono.just(generateCardResponse()));
         when(mapper.toRoundCardResponse(any()))
@@ -262,7 +262,7 @@ public class RoundControllerTest extends ControllerTest {
     }
 
     @Test
-    public void generateCardInvalidIdErrorTest() {
+    void generateCardInvalidIdErrorTest() {
 
         var uri = UriComponentsBuilder
             .fromUriString(ROUND_URL_GENERATE_CARD)
@@ -279,7 +279,7 @@ public class RoundControllerTest extends ControllerTest {
     }
 
     @Test
-    public void generateCardRoundBlankIdErrorTest() {
+    void generateCardRoundBlankIdErrorTest() {
 
         var uri = UriComponentsBuilder
             .fromUriString(ROUND_URL_GENERATE_CARD)
@@ -295,7 +295,7 @@ public class RoundControllerTest extends ControllerTest {
     }
 
     @Test
-    public void generateCardPlayerBlankIdErrorTest() {
+    void generateCardPlayerBlankIdErrorTest() {
 
         var uri = UriComponentsBuilder
                 .fromUriString(ROUND_URL_GENERATE_CARD)

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 @ExtendWith(MockitoExtension.class)
-public class DrawExecutorTest {
+class DrawExecutorTest {
     @InjectMocks
     private DrawExecutor executor;
 

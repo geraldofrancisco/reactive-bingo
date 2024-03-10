@@ -34,7 +34,7 @@ import static org.springframework.test.util.ReflectionTestUtils.setField;
 @ExtendWith(MockitoExtension.class)
 @ContextConfiguration(classes = {PlayerController.class, ReactiveBingoExceptionHandler.class})
 @WebFluxTest(controllers = PlayerController.class)
-public class PlayerControllerTests extends ControllerTest {
+class PlayerControllerTests extends ControllerTest {
 
     @MockBean
     private PlayerService service;
@@ -49,7 +49,7 @@ public class PlayerControllerTests extends ControllerTest {
 
 
     @Test
-    public void getListSuccessTest() {
+    void getListSuccessTest() {
 
         var uri = UriComponentsBuilder
                 .fromUriString(PLAYER_URL)
@@ -72,7 +72,7 @@ public class PlayerControllerTests extends ControllerTest {
     }
 
     @Test
-    public void getByIdSuccessTest() {
+    void getByIdSuccessTest() {
 
         var uri = UriComponentsBuilder
                 .fromUriString(PLAYER_URL_ID)
@@ -95,7 +95,7 @@ public class PlayerControllerTests extends ControllerTest {
     }
 
     @Test
-    public void createSuccessTest() {
+    void createSuccessTest() {
 
         var uri = UriComponentsBuilder
                 .fromUriString(PLAYER_URL_NICKNAME)
@@ -118,7 +118,7 @@ public class PlayerControllerTests extends ControllerTest {
     }
 
     @Test
-    public void updateSuccessTest() {
+    void updateSuccessTest() {
 
         when(mapper.toPlayer(any(PlayerUpdateRequest.class)))
                 .thenReturn(getPlayer());
@@ -141,7 +141,7 @@ public class PlayerControllerTests extends ControllerTest {
     }
 
     @Test
-    public void deleteSuccessTest() {
+    void deleteSuccessTest() {
 
         var uri = UriComponentsBuilder
                 .fromUriString(PLAYER_URL_ID)
@@ -160,7 +160,7 @@ public class PlayerControllerTests extends ControllerTest {
     }
 
     @Test
-    public void errorUpdateRequest() {
+    void errorUpdateRequest() {
         assertTrue(this.violation(getUpdateRequest().id(null).build()).stream().anyMatch(u -> u.getMessageTemplate().equals(GENERIC_REQUIRED)));
         assertTrue(this.violation(getUpdateRequest().nickname(null).build()).stream().anyMatch(u -> u.getMessageTemplate().equals(GENERIC_REQUIRED)));
     }

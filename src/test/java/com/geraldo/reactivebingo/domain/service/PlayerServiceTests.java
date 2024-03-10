@@ -30,7 +30,7 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-public class PlayerServiceTests {
+class PlayerServiceTests {
 
     @InjectMocks
     private PlayerService service;
@@ -43,7 +43,7 @@ public class PlayerServiceTests {
 
 
     @Test
-    public void createSuccessTest() {
+    void createSuccessTest() {
         var player = getPlayer();
         when(repository.existsByNickname(anyString()))
                 .thenReturn(Mono.just(FALSE));
@@ -61,7 +61,7 @@ public class PlayerServiceTests {
     }
 
     @Test
-    public void createErrorTest() {
+    void createErrorTest() {
         when(repository.existsByNickname(anyString()))
                 .thenReturn(Mono.just(TRUE));
 
@@ -72,7 +72,7 @@ public class PlayerServiceTests {
     }
 
     @Test
-    public void getByIdSuccessTest() {
+    void getByIdSuccessTest() {
         var player = getPlayer();
 
         when(repository.findById(any(ObjectId.class)))
@@ -89,7 +89,7 @@ public class PlayerServiceTests {
     }
 
     @Test
-    public void getByIdErrorTest() {
+    void getByIdErrorTest() {
         var player = getPlayer();
 
         when(repository.findById(any(ObjectId.class)))
@@ -103,7 +103,7 @@ public class PlayerServiceTests {
     }
 
     @Test
-    public void findAllTest() {
+    void findAllTest() {
 
         var pageable = PageRequest.of(0, 1);
         var player = getPlayer();
@@ -128,7 +128,7 @@ public class PlayerServiceTests {
     }
 
     @Test
-    public void updateSuccessTest() {
+    void updateSuccessTest() {
         var player = getPlayer();
         when(repository.existsById(any(ObjectId.class)))
                 .thenReturn(Mono.just(TRUE));
@@ -143,7 +143,7 @@ public class PlayerServiceTests {
     }
 
     @Test
-    public void updateErrorTest() {
+    void updateErrorTest() {
         var player = getPlayer();
         when(repository.existsById(any(ObjectId.class)))
                 .thenReturn(Mono.just(FALSE));
@@ -156,7 +156,7 @@ public class PlayerServiceTests {
     }
 
     @Test
-    public void getDeleteSuccessTest() {
+    void getDeleteSuccessTest() {
         var player = getPlayer();
 
         when(repository.findById(any(ObjectId.class)))
@@ -178,7 +178,7 @@ public class PlayerServiceTests {
     }
 
     @Test
-    public void deleteErrorTest() {
+    void deleteErrorTest() {
         var player = getPlayer();
 
         when(repository.findById(any(ObjectId.class)))

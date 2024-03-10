@@ -41,7 +41,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class RoundServiceTests {
+class RoundServiceTests {
     @InjectMocks
     private RoundService service;
 
@@ -65,7 +65,7 @@ public class RoundServiceTests {
 
 
     @Test
-    public void findALlByStatusSuccessTest() {
+    void findALlByStatusSuccessTest() {
         var pageable = PageRequest.of(0, 1);
         var total = 1L;
         var round = getRound().build();
@@ -83,7 +83,7 @@ public class RoundServiceTests {
     }
 
     @Test
-    public void getByIdSuccessTest() {
+    void getByIdSuccessTest() {
         var round = getRound().build();
         getByIdSuccessTraining(round);
 
@@ -95,7 +95,7 @@ public class RoundServiceTests {
     }
 
     @Test
-    public void getByIdSuccessErrorTest() {
+    void getByIdSuccessErrorTest() {
         when(repository.findById(any(ObjectId.class)))
             .thenReturn(Mono.empty());
 
@@ -107,7 +107,7 @@ public class RoundServiceTests {
     }
 
     @Test
-    public void createTest() {
+    void createTest() {
         var round = getRound().build();
         saveTraining(round);
         var result = service.create();
@@ -118,7 +118,7 @@ public class RoundServiceTests {
     }
 
     @Test
-    public void getTheLastNumberDrawnByTheRoundIdSuccessTest() {
+    void getTheLastNumberDrawnByTheRoundIdSuccessTest() {
         var round = getRound()
                 .lastDraw(1)
                 .status(RUNNING)
@@ -134,7 +134,7 @@ public class RoundServiceTests {
     }
 
     @Test
-    public void getTheLastNumberDrawnByTheRoundIdErrorTest() {
+    void getTheLastNumberDrawnByTheRoundIdErrorTest() {
         var round = getRound()
             .lastDraw(1)
             .status(FINISHED)
@@ -150,7 +150,7 @@ public class RoundServiceTests {
     }
 
     @Test
-    public void drawNextNumberByTheRoundIdContainsWinnerSuccessTest() {
+    void drawNextNumberByTheRoundIdContainsWinnerSuccessTest() {
         var round = getRound()
             .winners(List.of(getRoundCard().build()))
             .cards(List.of(getRoundCard().build(), getRoundCard().build()))
@@ -166,7 +166,7 @@ public class RoundServiceTests {
     }
 
     @Test
-    public void drawNextNumberByTheRoundIdExecuteNotWinnerSuccessTest() {
+    void drawNextNumberByTheRoundIdExecuteNotWinnerSuccessTest() {
         var round = getRound()
             .cards(List.of(getRoundCard().build(), getRoundCard().build()))
             .build();
@@ -184,7 +184,7 @@ public class RoundServiceTests {
     }
 
     @Test
-    public void drawNextNumberByTheRoundIdExecuteWinnerSuccessTest() {
+    void drawNextNumberByTheRoundIdExecuteWinnerSuccessTest() {
         var round = getRound()
                 .cards(List.of(getRoundCard().build(), getRoundCard().build()))
                 .winners(List.of(getRoundCard().build()))
@@ -200,7 +200,7 @@ public class RoundServiceTests {
     }
 
     @Test
-    public void drawNextNumberByTheRoundIdNumberOfCardsInvalidErrorTest() {
+    void drawNextNumberByTheRoundIdNumberOfCardsInvalidErrorTest() {
         var round = getRound()
             .cards(List.of(getRoundCard().build()))
             .build();
@@ -215,7 +215,7 @@ public class RoundServiceTests {
     }
 
     @Test
-    public void generateCardSuccessTest() {
+    void generateCardSuccessTest() {
         var round = getRound().status(CREATED).build();
         var player = getPlayer().build();
 
@@ -235,7 +235,7 @@ public class RoundServiceTests {
     }
 
     @Test
-    public void generateCardRoundInvalidStatusErrorTest() {
+    void generateCardRoundInvalidStatusErrorTest() {
         var round = getRound().status(RUNNING).build();
         var player = getPlayer().build();
 
@@ -252,7 +252,7 @@ public class RoundServiceTests {
     }
 
     @Test
-    public void generateCardRoundExistsPlayerErrorTest() {
+    void generateCardRoundExistsPlayerErrorTest() {
         var player = getPlayer()
                 .id(ID_EXAMPLE)
                 .build();
