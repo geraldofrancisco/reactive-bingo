@@ -13,6 +13,7 @@ import reactor.test.StepVerifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.stream.IntStream;
 
 import static com.geraldo.reactivebingo.domain.constants.Examples.ID_EXAMPLE;
@@ -40,12 +41,16 @@ public class GenerateCardExecutorTest {
     private Round getRound() {
         return Round.builder()
                 .drawnNumbers(new ArrayList<>(List.of(1,2,3)))
-                .cards(new ArrayList<>(List.of(getCard())))
+                .cards(new ArrayList<>(List.of(getCard(), getCard(), getCard(), getCard())))
                 .build();
     }
 
     private RoundCard getCard() {
-        var drawnNumbers = IntStream.range(0,40).boxed().toList();
+        var drawnNumbers = IntStream.range(0,30)
+                .map(n -> new Random().nextInt(100))
+                .boxed()
+                .toList();
+
         return RoundCard.builder()
                 .numbers(new ArrayList<>(drawnNumbers))
                 .build();
